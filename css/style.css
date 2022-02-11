@@ -41,10 +41,9 @@ section.board {
 
 div {
   border: 3px solid black;
-  font-size: .5rem;
+  font-size: 1.2rem;
   text-align: center;
   vertical-align: middle;
   color: black;
   font-family: 'Happy Monkey', sans-serif;
-  line-height: 135px;
 }
