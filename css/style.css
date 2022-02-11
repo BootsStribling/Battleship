@@ -1,0 +1,50 @@
+html {
+  box-sizing: border-box
+}
+
+/* The Universal Selector */
+*, /* All elements*/
+*::before, /* All ::before pseudo-elements */
+*::after { /* All ::after pseudo-elements */
+  /* height & width will now include border & padding by default
+     but can be over-ridden as needed */
+  box-sizing: inherit;
+}
+
+/* resets font size to be 62.5% of the user preference - 
+     in most browser configurations this will be 10px */
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: seagreen;
+/* Use a system font, if none are available use an available sans-sarif   font */
+font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+color: whitesmoke;
+margin: 0;
+height: 100vh;
+display: flex;
+flex-direction: column;
+text-align: center;
+align-items: center;
+justify-content: center;
+}
+section.board {
+  display: grid;
+  grid-template-rows: repeat(10, 3vmin);
+  grid-template-columns: repeat(10, 3vmin);
+  grid-gap: 0vmin;
+  border: 3px solid black;
+}
+
+div {
+  border: 3px solid black;
+  font-size: .5rem;
+  text-align: center;
+  vertical-align: middle;
+  color: black;
+  font-family: 'Happy Monkey', sans-serif;
+  line-height: 135px;
+}

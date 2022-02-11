@@ -1,3 +1,31 @@
+//*------------------------------- Constants -------------------------------*//
+
+
+//*------------------------------- Variables -------------------------------*//
+
+
+//*---------------------- Cached Element References ------------------------*//
+const g00 = document.querySelector('#g0-0')
+
+//*--------------------------- Event Listeners -----------------------------*//
+g00.addEventListener('click', consoleLog)
+
+//*------------------------------ Functions --------------------------------*//
+
+function consoleLog(evt){
+  console.log(evt.target.id)
+  console.log(evt.target.classList)
+  console.dir(evt.target)
+  render(evt)
+}
+
+function render(evt){
+  evt.target.innerText = 'X'
+}
+
+
+
+
 //Constants
   // turn, player 1, player 2, shipinventory array of arrays, board array of arrays
   //ship inventory array of arrays is:
@@ -8,7 +36,6 @@
   //     [4,4,4,4], - battleship
   //     [5,5,5,5,5] - carrier
   // ]
-
   //board = [
   // [ , , , , , , , , , ]
   // [ , , , , , , , , , ]

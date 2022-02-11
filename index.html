@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <script defer src="./js/app.js"></script>
+  <link id="favicon" rel="icon" href="./assets/favicon.png" type="image/png" sizes="32x32"
+  >
+  <title>Battleship</title>
+</head>
+<body>
+  <h1 id="title">Battleship</h1>
+    <h2 id="player-ind"></h2>
+    <h3 id="title-msg"></h3>
+    <section id="test" class="board">
+      <!-- squares id by xvalue-yvalue starting with 0 to correspond to index value -->
+      <div class ="square" id="g0-0" ></div>
+      <div class ="square" id="g0-1" ></div>
+      <div class ="square" id="g0-2" ></div>
+      <div class ="square" id="g0-3" ></div>
+      <div class ="square" id="g0-4" ></div>
+      <div class ="square" id="g0-5" ></div>
+      <div class ="square" id="g0-6" ></div>
+      <div class ="square" id="g0-7" ></div>
+      <div class ="square" id="g0-8" ></div>
+      <div class ="square" id="g0-9" ></div>
+      <div class ="square" id="g1-0" ></div>
+      <div class ="square" id="g1-1" ></div>
+      <div class ="square" id="g1-2" ></div>
+      <div class ="square" id="g1-3" ></div>
+      <div class ="square" id="g1-4" ></div>
+      <div class ="square" id="g1-5" ></div>
+      <div class ="square" id="g1-6" ></div>
+      <div class ="square" id="g1-7" ></div>
+      <div class ="square" id="g1-8" ></div>
+      <div class ="square" id="g1-9" ></div>
+      <div class ="square" id="g2-0" ></div>
+      <div class ="square" id="g2-1" ></div>
+      <div class ="square" id="g2-2" ></div>
+      <div class ="square" id="g2-3" ></div>
+      <div class ="square" id="g2-4" ></div>
+      <div class ="square" id="g2-5" ></div>
+      <div class ="square" id="g2-6" ></div>
+      <div class ="square" id="g2-7" ></div>
+      <div class ="square" id="g2-8" ></div>
+      <div class ="square" id="g2-9" ></div>
+      <div class ="square" id="g3-0" ></div>
+      <div class ="square" id="g3-1" ></div>
+      <div class ="square" id="g3-2" ></div>
+      <div class ="square" id="g3-3" ></div>
+      <div class ="square" id="g3-4" ></div>
+      <div class ="square" id="g3-5" ></div>
+      <div class ="square" id="g3-6" ></div>
+      <div class ="square" id="g3-7" ></div>
+      <div class ="square" id="g3-8" ></div>
+      <div class ="square" id="g3-9" ></div>
+      <div class ="square" id="g4-0" ></div>
+      <div class ="square" id="g4-1" ></div>
+      <div class ="square" id="g4-2" ></div>
+      <div class ="square" id="g4-3" ></div>
+      <div class ="square" id="g4-4" ></div>
+      <div class ="square" id="g4-5" ></div>
+      <div class ="square" id="g4-6" ></div>
+      <div class ="square" id="g4-7" ></div>
+      <div class ="square" id="g4-8" ></div>
+      <div class ="square" id="g4-9" ></div>
+      <div class ="square" id="g5-0" ></div>
+      <div class ="square" id="g5-1" ></div>
+      <div class ="square" id="g5-2" ></div>
+      <div class ="square" id="g5-3" ></div>
+      <div class ="square" id="g5-4" ></div>
+      <div class ="square" id="g5-5" ></div>
+      <div class ="square" id="g5-6" ></div>
+      <div class ="square" id="g5-7" ></div>
+      <div class ="square" id="g5-8" ></div>
+      <div class ="square" id="g5-9" ></div>
+      <div class ="square" id="g6-0" ></div>
+      <div class ="square" id="g6-1" ></div>
+      <div class ="square" id="g6-2" ></div>
+      <div class ="square" id="g6-3" ></div>
+      <div class ="square" id="g6-4" ></div>
+      <div class ="square" id="g6-5" ></div>
+      <div class ="square" id="g6-6" ></div>
+      <div class ="square" id="g6-7" ></div>
+      <div class ="square" id="g6-8" ></div>
+      <div class ="square" id="g6-9" ></div>
+      <div class ="square" id="g7-0" ></div>
+      <div class ="square" id="g7-1" ></div>
+      <div class ="square" id="g7-2" ></div>
+      <div class ="square" id="g7-3" ></div>
+      <div class ="square" id="g7-4" ></div>
+      <div class ="square" id="g7-5" ></div>
+      <div class ="square" id="g7-6" ></div>
+      <div class ="square" id="g7-7" ></div>
+      <div class ="square" id="g7-8" ></div>
+      <div class ="square" id="g7-9" ></div>
+      <div class ="square" id="g8-0" ></div>
+      <div class ="square" id="g8-1" ></div>
+      <div class ="square" id="g8-2" ></div>
+      <div class ="square" id="g8-3" ></div>
+      <div class ="square" id="g8-4" ></div>
+      <div class ="square" id="g8-5" ></div>
+      <div class ="square" id="g8-6" ></div>
+      <div class ="square" id="g8-7" ></div>
+      <div class ="square" id="g8-8" ></div>
+      <div class ="square" id="g8-9" ></div>
+      <div class ="square" id="g9-0" ></div>
+      <div class ="square" id="g9-1" ></div>
+      <div class ="square" id="g9-2" ></div>
+      <div class ="square" id="g9-3" ></div>
+      <div class ="square" id="g9-4" ></div>
+      <div class ="square" id="g9-5" ></div>
+      <div class ="square" id="g9-6" ></div>
+      <div class ="square" id="g9-7" ></div>
+      <div class ="square" id="g9-8" ></div>
+      <div class ="square" id="g9-9" ></div>
+    </section>
+    <p id="hit-miss-msg"></p>
+</body>
+</html>
