@@ -1,8 +1,11 @@
 //*------------------------------- Constants -------------------------------*//
+const hit = "red";
+const miss = "white";
+const shipMid = "grey";
 
 
 //*------------------------------- Variables -------------------------------*//
-
+let turn 
 
 //*---------------------- Cached Element References ------------------------*//
 const g00 = document.querySelector('#g0-0')
@@ -120,10 +123,15 @@ function consoleLog(evt){
   console.dir(evt.target)
   render(evt)
 }
-
+turn = 0
 function render(evt){
   let target = evt.target
-  target.style.backgroundColor = "white";
+  if (turn === 0){
+    target.style.backgroundColor = shipMid
+  }
+  // if(variable result of hit/miss logic){}
+  // target.style.backgroundColor = hit
+  // target.style.backgroundColor = miss
 }
 
 
