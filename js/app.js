@@ -9,12 +9,16 @@ let turn
 
 //*---------------------- Cached Element References ------------------------*//
 
+//Message Elements
+const prompt = document.querySelector('#prompt')
+
 //Ship Placement Buttons
+const expose = document.querySelector('#expose')
 const hide = document.querySelector('#hide')
-const shipBoard = document.querySelector('#ship-board')
+const shipBoard = document.querySelector('.ship-board')
 
 //Board Divs
-const boardSquares = document.querySelectorAll('#ship-board > div')
+const boardSquares = document.querySelectorAll('.ship-board > div')
 const g00 = document.querySelector('#g0-0')
 const g01 = document.querySelector('#g0-1')
 const g02 = document.querySelector('#g0-2')
@@ -129,6 +133,7 @@ const g99 = document.querySelector('#g9-9')
 
 //Ship Placement Buttons
 hide.addEventListener('click', hideShipBoard)
+expose.addEventListener('click', exposeShipBoard)
 
 //Board Divs
 boardSquares.forEach(boardSquare => {
@@ -146,20 +151,30 @@ function consoleLog(evt){
   render(evt)
 }
 turn = 0
+
 function render(evt){
   let target = evt.target
-  if (turn === 0){
+  if(turn === 0){
     target.style.backgroundColor = shipMid
-  }
   // if(variable result of hit/miss logic){}
   // target.style.backgroundColor = hit
   // target.style.backgroundColor = miss
+  }
 }
-
+//shipPlacement() - mechanic to prompt user and place ships
+function shipPlacement(){
+  exposeShipBoard();
+  prompt.innerText = 'Please click the ship you wish to place then click the board sequentially where you would like it placed'
+  
+}
 
 //Hide and Expose Board Helper Functions
 function hideShipBoard(){
   shipBoard.setAttribute('hidden', true)
+}
+
+function exposeShipBoard(){
+  shipBoard.removeAttribute('hidden');
 }
 
 
