@@ -8,6 +8,13 @@ const shipMid = "grey";
 let turn 
 
 //*---------------------- Cached Element References ------------------------*//
+
+//Ship Placement Buttons
+const hide = document.querySelector('#hide')
+const shipBoard = document.querySelector('#ship-board')
+
+//Board Divs
+const boardSquares = document.querySelectorAll('#ship-board > div')
 const g00 = document.querySelector('#g0-0')
 const g01 = document.querySelector('#g0-1')
 const g02 = document.querySelector('#g0-2')
@@ -18,6 +25,7 @@ const g06 = document.querySelector('#g0-6')
 const g07 = document.querySelector('#g0-7')
 const g08 = document.querySelector('#g0-8')
 const g09 = document.querySelector('#g0-9')
+
 const g10 = document.querySelector('#g1-0')
 const g11 = document.querySelector('#g1-1')
 const g12 = document.querySelector('#g1-2')
@@ -28,6 +36,7 @@ const g16 = document.querySelector('#g1-6')
 const g17 = document.querySelector('#g1-7')
 const g18 = document.querySelector('#g1-8')
 const g19 = document.querySelector('#g1-9')
+
 const g20 = document.querySelector('#g2-0')
 const g21 = document.querySelector('#g2-1')
 const g22 = document.querySelector('#g2-2')
@@ -48,6 +57,7 @@ const g36 = document.querySelector('#g3-6')
 const g37 = document.querySelector('#g3-7')
 const g38 = document.querySelector('#g3-8')
 const g39 = document.querySelector('#g3-9')
+
 const g40 = document.querySelector('#g4-0')
 const g41 = document.querySelector('#g4-1')
 const g42 = document.querySelector('#g4-2')
@@ -78,6 +88,7 @@ const g66 = document.querySelector('#g6-6')
 const g67 = document.querySelector('#g6-7')
 const g68 = document.querySelector('#g6-8')
 const g69 = document.querySelector('#g6-9')
+
 const g70 = document.querySelector('#g7-0')
 const g71 = document.querySelector('#g7-1')
 const g72 = document.querySelector('#g7-2')
@@ -88,6 +99,7 @@ const g76 = document.querySelector('#g7-6')
 const g77 = document.querySelector('#g7-7')
 const g78 = document.querySelector('#g7-8')
 const g79 = document.querySelector('#g7-9')
+
 const g80 = document.querySelector('#g8-0')
 const g81 = document.querySelector('#g8-1')
 const g82 = document.querySelector('#g8-2')
@@ -98,6 +110,7 @@ const g86 = document.querySelector('#g8-6')
 const g87 = document.querySelector('#g8-7')
 const g88 = document.querySelector('#g8-8')
 const g89 = document.querySelector('#g8-9')
+
 const g90 = document.querySelector('#g9-0')
 const g91 = document.querySelector('#g9-1')
 const g92 = document.querySelector('#g9-2')
@@ -113,7 +126,16 @@ const g99 = document.querySelector('#g9-9')
 
 
 //*--------------------------- Event Listeners -----------------------------*//
-g00.addEventListener('click', consoleLog)
+
+//Ship Placement Buttons
+hide.addEventListener('click', hideShipBoard)
+
+//Board Divs
+boardSquares.forEach(boardSquare => {
+  boardSquare.addEventListener('click', consoleLog)
+})
+
+
 
 //*------------------------------ Functions --------------------------------*//
 
@@ -135,6 +157,10 @@ function render(evt){
 }
 
 
+//Hide and Expose Board Helper Functions
+function hideShipBoard(){
+  shipBoard.setAttribute('hidden', true)
+}
 
 
 //Constants

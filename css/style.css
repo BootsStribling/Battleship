@@ -31,6 +31,11 @@ text-align: center;
 align-items: center;
 justify-content: center;
 }
+
+[hidden] { 
+  display: none !important;
+}
+
 section.board {
   display: grid;
   grid-template-rows: repeat(10, 3vmin);
@@ -49,3 +54,4 @@ div {
   justify-content: center;
   align-items: center;
 }
+
