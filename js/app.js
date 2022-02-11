@@ -122,7 +122,8 @@ function consoleLog(evt){
 }
 
 function render(evt){
-  evt.target.innerText = 'X'
+  let target = evt.target
+  target.style.backgroundColor = "white";
 }
 
 
