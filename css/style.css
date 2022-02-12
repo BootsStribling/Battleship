@@ -36,6 +36,10 @@ grid-template-areas:
 ;
 }
 
+[hidden]{
+  display: none !important;
+}
+
 section.play-area{
   grid-area: play-area;
   display: flex;
@@ -47,13 +51,12 @@ section.play-area{
 section.ship-board{
   background-color: transparent;
   display: grid;
-  grid-template-rows: repeat(10, 3vmin);
-  grid-template-columns: repeat(10, 3vmin);
+  grid-template-rows: repeat(10, 4vmin);
+  grid-template-columns: repeat(10, 4vmin);
   border: 2px solid black;
 }
 
 section.ship-bank{
-  background-color: transparent;
   color: black;
   grid-area: ship-bank;
   display: flex;
@@ -75,15 +78,32 @@ section#buttons{
   justify-content: center;
 }
 
-section#bank-box{
+section#bank-box-h{
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   background-color: whitesmoke;
   min-width: 15vw;
-  min-height: 20vh;
+  max-width: 20vw;
+  min-height: 40vh;
+}
 
+section#bank-box-v{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 20% 30% 60%;
+  grid-template-areas: 
+  "pt pt"
+  "sub cru"
+  "bat car";
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  min-width: 15vw;
+  max-width: 20vw;
+  min-height: 40vh;
+  padding: 10px;
 }
 
 .square {
@@ -95,36 +115,88 @@ section#bank-box{
   
 }
 
-#pt, #sub, #cru, #bat, #car{
+#pt-h, #sub-h, #cru-h, #bat-h, #car-h{
   font-size: 1.5vmin;
   background-color: darkgray;
-  height: 2vmin;
+  height: 3vmin;
+  margin: 1vmin;
+  border: 1px solid black;
 }
-
-#pt{
-  width: 6vmin;
+#pt-h{
+  width: 8vmin;
   border-radius: 25%;
 }
 
-#sub{
-  width: 9vmin;
-  border-radius: 35%;
-}
-
-#cru{
-  width: 9vmin;
-  border-radius: 25%;
-}
-
-#bat{
+#sub-h{
   width: 12vmin;
   border-radius: 35%;
 }
 
-#car{
-  width: 15vmin;
+#cru-h{
+  width: 12vmin;
+  border-radius: 25%;
+}
+
+#bat-h{
+  width: 16vmin;
+  border-radius: 35%;
+}
+
+#car-h{
+  width: 20vmin;
   border-radius: 20%;
 }
 
+#ptv, #subv, #cruv, #batv, #carv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+#ptv{
+  grid-area: pt;
+}
+#subv{
+  grid-area: sub;
+}
+#cruv{
+  grid-area: cru;
+}
+#batv{
+  grid-area: bat;
+}
+#carv{
+  grid-area: car;
+}
 
+#pt-v, #sub-v, #cru-v, #bat-v, #car-v{
+  font-size: 1.5vmin;
+  background-color: darkgray;
+  width: 3vmin;
+  margin: 1vmin;
+  border: 1px solid black;
+}
+#pt-v{
+  height: 8vmin;
+  border-radius: 25%;
+}
+
+#sub-v{
+  height: 12vmin;
+  border-radius: 35%;
+}
+
+#cru-v{
+  height: 12vmin;
+  border-radius: 25%;
+}
+
+#bat-v{
+  height: 16vmin;
+  border-radius: 35%;
+}
+
+#car-v{
+  height: 20vmin;
+  border-radius: 20%;
+}
