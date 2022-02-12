@@ -13,9 +13,20 @@ let turn
 const prompt = document.querySelector('#prompt')
 
 //Ship Placement Buttons
-const expose = document.querySelector('#expose')
-const hide = document.querySelector('#hide')
+const ready = document.querySelector('#ready')
+const reset = document.querySelector('#reset')
+const horizontal = document.querySelector('#horizontal')
+const vertical = document.querySelector('#vertical')
 const shipBoard = document.querySelector('.ship-board')
+const shipBankV = document.querySelector('#bank-box-v')
+const shipBankH = document.querySelector('#bank-box-h')
+
+//ship Divs
+const pt = document.querySelectorAll('.pt > div')
+const sub = document.querySelector('.sub')
+const cru = document.querySelector('.cru')
+const bat = document.querySelector('.bat')
+const car = document.querySelector('.car')
 
 //Board Divs
 const boardSquares = document.querySelectorAll('.ship-board > div')
@@ -132,8 +143,17 @@ const g99 = document.querySelector('#g9-9')
 //*--------------------------- Event Listeners -----------------------------*//
 
 //Ship Placement Buttons
-hide.addEventListener('click', hideShipBoard)
-expose.addEventListener('click', exposeShipBoard)
+ready.addEventListener('click', hideShipBoard)
+reset.addEventListener('click', exposeShipBoard)
+vertical.addEventListener('click', vToggle)
+horizontal.addEventListener('click', hToggle)
+
+//ship divs
+pt.addEventListener('click', consoleLog)
+sub.addEventListener('click', highlightShip)
+cru.addEventListener('click', highlightShip)
+bat.addEventListener('click', highlightShip)
+car.addEventListener('click', highlightShip)
 
 //Board Divs
 boardSquares.forEach(boardSquare => {
@@ -165,10 +185,9 @@ function render(evt){
 function shipPlacement(){
   exposeShipBoard();
   prompt.innerText = 'Please click the ship you wish to place then click the board sequentially where you would like it placed'
-  
 }
 
-//Hide and Expose Board Helper Functions
+// Helper Functions
 function hideShipBoard(){
   shipBoard.setAttribute('hidden', true)
 }
@@ -177,6 +196,37 @@ function exposeShipBoard(){
   shipBoard.removeAttribute('hidden');
 }
 
+function vToggle() {
+  shipBankH.setAttribute('hidden',true)
+  shipBankV.removeAttribute('hidden')
+  vertical.setAttribute('hidden',true)
+  horizontal.removeAttribute('hidden')
+}
+
+function hToggle() {
+  shipBankV.setAttribute('hidden',true)
+  shipBankH.removeAttribute('hidden')
+  horizontal.setAttribute('hidden', true)
+  vertical.removeAttribute('hidden')
+}
+
+// function removeHighlight(){
+
+// }
+
+function highlightShip(evt){
+  // removeHighlight()
+  let target = evt.target.id
+  if(
+    target.includes('pt')  ||
+    target.includes('sub') ||
+    target.includes('cru') ||
+    target.includes('bat') ||
+    target.includes('car')
+    ){
+    evt.target.classList.add('highlight')
+  }
+}
 
 //Constants
   // turn, player 1, player 2, shipinventory array of arrays, board array of arrays

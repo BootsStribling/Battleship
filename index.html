@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/style.css">
-  <script defer src="./js/app.js"></script>
   <link id="favicon" rel="icon" href="./assets/favicon.png" type="image/png" sizes="32x32"
   >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
+  <script defer src="./js/app.js"></script>
   <title>Battleship</title>
 </head>
 <body>
@@ -121,24 +122,29 @@
     </section>
     <section class="ship-bank" id="ship-bank">
       <section id="bank-box-h">
-        <div id="pt-h"></div>
-        <div id="sub-h" ></div>
-        <div id="cru-h" ></div>
-        <div id="bat-h" ></div>
-        <div id="car-h" ></div>
+        <div class = "pt" id="pt-h"></div>
+        <div class = "sub" id="sub-h" ></div>
+        <div class = "cru" id="cru-h" ></div>
+        <div class = "bat" id="bat-h" ></div>
+        <div class = "car" id="car-h" ></div>
       </section>
       <section id="bank-box-v" hidden>
-        <div id="ptv"><div id="pt-v"></div></div>
-        <div id="subv"><div id="sub-v"></div></div>
-        <div id="cruv" ><div id="cru-v"></div></div>
-        <div id="batv"><div id="bat-v"></div></div>
-        <div id="carv"><div id="car-v"></div></div>
+        <div id="ptv"><div class = "pt" id="pt-v"></div></div>
+        <div id="subv"><div class = "sub" id="sub-v"></div></div>
+        <div id="cruv" ><div class = "cru" id="cru-v"></div></div>
+        <div id="batv"><div class = "bat" id="bat-v"></div></div>
+        <div id="carv"><div class = "car" id="car-v"></div></div>
       </section>
     </section>
-    <p id="hit-miss-msg"></p>
-    <section id="buttons">
-      <button class="button" id="expose">expose</button>
-      <button class="button" id="hide">hide</button>
+    
+    <section id="middle-buttons">
+      <button class="button btn btn-success" id="ready">Ready</button>
+      <button class="button btn btn-danger" id="reset">Reset</button>
+      <p id="hit-miss-msg"></p>
+    </section>
+    <section id="right-buttons">
+      <button id="vertical" class="btn btn-primary">Vertical</button>
+      <button id="horizontal" class="btn btn-primary"hidden>Horizontal</button>
     </section>
   </body>
 </html>
