@@ -15,6 +15,7 @@ html {
      in most browser configurations this will be 10px */
 :root {
   font-size: 62.5%;
+
 }
 
 body {
@@ -25,43 +26,105 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 color: whitesmoke;
 margin: 0;
 height: 100vh;
-display: flex;
-flex-direction: column;
-text-align: center;
-align-items: center;
-justify-content: center;
+display: grid;
+grid-template-columns: 25% 50% 25%;
+grid-template-rows: 25% 50% 25%;
+grid-template-areas: 
+'. messages .'
+'. play-area ship-bank'
+'. buttons .'
+;
 }
 
-[hidden] { 
-  display: none !important;
+section.play-area{
+  grid-area: play-area;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent ;
 }
 
-section.ship-board {
+section.ship-board{
+  background-color: transparent;
   display: grid;
   grid-template-rows: repeat(10, 3vmin);
   grid-template-columns: repeat(10, 3vmin);
-  grid-gap: 0vmin;
-  border: 3px solid black;
+  border: 2px solid black;
 }
-section.buttons{
+
+section.ship-bank{
+  background-color: transparent;
+  color: black;
+  grid-area: ship-bank;
   display: flex;
   flex-direction: column;
-  align-items: space-between;
-  width: 10vmin;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
 }
 
-.play-area{
-  display: grid;
+.button{
+  margin: 2vw
 }
 
-div {
+section#buttons{
+  grid-area: buttons;
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+section#bank-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: whitesmoke;
+  min-width: 15vw;
+  min-height: 20vh;
+
+}
+
+.square {
   border: 1px solid black;
   text-align: center;
   vertical-align: middle;
-  color: black;
+  color: ivory;
   font-family: 'Happy Monkey', sans-serif;
-  justify-content: center;
-  align-items: center;
+  
 }
+
+#pt, #sub, #cru, #bat, #car{
+  font-size: 1.5vmin;
+  background-color: darkgray;
+  height: 2vmin;
+}
+
+#pt{
+  width: 6vmin;
+  border-radius: 25%;
+}
+
+#sub{
+  width: 9vmin;
+  border-radius: 35%;
+}
+
+#cru{
+  width: 9vmin;
+  border-radius: 25%;
+}
+
+#bat{
+  width: 12vmin;
+  border-radius: 35%;
+}
+
+#car{
+  width: 15vmin;
+  border-radius: 20%;
+}
+
+
 
