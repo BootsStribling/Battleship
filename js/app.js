@@ -354,7 +354,7 @@ car.forEach(car => {
 
 //Board Divs
 shipSquares.forEach(shipSquare => {
-  shipSquare.addEventListener('click', renderShip)
+  shipSquare.addEventListener('click', handleShipClick)
 })
 
 
@@ -372,27 +372,33 @@ turn = 0
 
 function handleShipClick(evt) {
   highlightShip(evt)
-  let target = evt.target.id
+  let targetId = evt.target.id
+  let targetClass = evt.target.classList
+  console.dir(evt.target.classList)
   let spaces = 0
-  if(target.includes('pt')){
-    spaces = 2;
-    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
-  }
-  if(target.includes('sub')){
-    spaces = 3;
-    prompt.innerText = `Please place your Submarine in ${spaces} available spaces.`
-  }
-  if(target.includes('pt')){
-    spaces = 3;
-    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
-  }
-  if(target.includes('pt')){
-    spaces = 4;
-    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
-  }
-  if(target.includes('pt')){
-    spaces = 4;
-    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
+  if(targetClass.contains('square')){
+    renderShip(evt)
+  }else{
+    if(targetId.includes('pt')){
+      spaces = 2;
+      prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
+    }
+    if(targetId.includes('sub')){
+      spaces = 3;
+      prompt.innerText = `Please place your Submarine in ${spaces} available spaces.`
+    }
+    if(targetId.includes('cru')){
+      spaces = 3;
+      prompt.innerText = `Please place your Cruiser in ${spaces} available spaces.`
+    }
+    if(targetId.includes('bat')){
+      spaces = 4;
+      prompt.innerText = `Please place your Battleship in ${spaces} available spaces.`
+    }
+    if(targetId.includes('car')){
+      spaces = 5;
+      prompt.innerText = `Please place your Carrier in ${spaces} available spaces.`
+    }
   }
 }
 
