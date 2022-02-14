@@ -48,12 +48,20 @@ section.play-area{
   background-color: transparent ;
 }
 
-section.ship-board{
+section.board{
   background-color: transparent;
   display: grid;
   grid-template-rows: repeat(10, 4vmin);
   grid-template-columns: repeat(10, 4vmin);
   border: 2px solid black;
+}
+
+section.ship-board{
+  margin-right: 10px;
+}
+
+section.shot-board{
+  margin-left: 10px;
 }
 
 section.ship-bank{
