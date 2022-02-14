@@ -13,10 +13,10 @@
 </head>
 <body>
   <h1 id="title">Battleship</h1>
-    <h2 id="player-ind"></h2>
+    <h2 id="player"></h2>
     <h3 id="prompt"></h3>
     <section class="play-area">
-      <img src="https://picsum.photos/800/500" alt="Placeholder image">
+      <img id="page-load-image" src="https://picsum.photos/800/500" alt="Placeholder image">
       <section class="board ship-board" hidden>
         <!-- squares id by xvalue-yvalue starting with 0 to correspond to index value -->
         <div class ="square" id="g0-0" ></div>
@@ -240,7 +240,9 @@
         <div id="carv"><div class = "vertical car" id="car-v"></div></div>
       </section>
     </section>
-    
+    <section id="left-buttons">
+      <button class="button btn btn-danger" id="back" hidden>Back</button>
+    </section>
     <section id="middle-buttons">
       <button class="button btn btn-success" id="play">Play</button>
       <button class="button btn btn-success" id="ready" hidden>Ready</button>

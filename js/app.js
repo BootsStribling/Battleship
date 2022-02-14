@@ -10,7 +10,13 @@ let turn
 //*---------------------- Cached Element References ------------------------*//
 
 //Message Elements
+const title = document.querySelector('#title')
+const player = document.querySelector('#player')
 const prompt = document.querySelector('#prompt')
+
+
+//img
+const img = document.querySelector('#page-load-image')
 
 //Ship Placement Buttons
 const play = document.querySelector('#play')
@@ -19,11 +25,11 @@ const reset = document.querySelector('#reset')
 const horizontal = document.querySelector('#horizontal')
 const vertical = document.querySelector('#vertical')
 const shipBoard = document.querySelector('.ship-board')
+const shotBoard = document.querySelector('.shot-board')
 const shipBankV = document.querySelector('#bank-box-v')
 const shipBankH = document.querySelector('#bank-box-h')
 
 //ship Divs
-const hShips = document.querySelectorAll('.horizontal')
 const pt = document.querySelectorAll('.pt')
 const sub = document.querySelectorAll('.sub')
 const cru = document.querySelectorAll('.cru')
@@ -144,7 +150,11 @@ const g99 = document.querySelector('#g9-9')
 
 //*--------------------------- Event Listeners -----------------------------*//
 
+//Pageload buttons
+play.addEventListener('click', shipPlacementLoad)
+
 //Ship Placement Buttons
+back.addEventListener('click', pageLoad)
 ready.addEventListener('click', hideShipBoard)
 reset.addEventListener('click', exposeShipBoard)
 vertical.addEventListener('click', vToggle)
@@ -196,20 +206,68 @@ function render(evt){
   }
 }
 //shipPlacement() - mechanic to prompt user and place ships
-function shipPlacement(){
-  exposeShipBoard();
-  prompt.innerText = 'Please click the ship you wish to place then click the board sequentially where you would like it placed'
+function shipPlacementLoad(){
+  hidePageLoad()
+  exposeShipPlacement()
 }
 
-// Helper Functions
-function hideShipBoard(){
-  shipBoard.setAttribute('hidden', true)
+//* Helper functions *//
+
+
+
+//PageState Hide/Remove
+function pageLoad() {
+  img.removeAttribute('hidden')
+  title.removeAttribute('hidden')
+  play.removeAttribute('hidden')
 }
+
+
+function hidePageLoad(){
+  img.setAttribute('hidden',true)
+  title.setAttribute('hidden',true)
+  play.setAttribute('hidden', true)
+}
+
+function exposeShipPlacement(){
+  exposeShipBoard()
+  player.innerText = 'Player 1'
+  prompt.innerText = 'Please click the ship you wish to place then click the board sequentially where you would like it placed'
+  ready.removeAttribute('hidden')
+  reset.removeAttribute('hidden')
+
+
+}
+
+//element hide/remove
 
 function exposeShipBoard(){
   shipBoard.removeAttribute('hidden');
 }
 
+function hideShipBoard(){
+  shipBoard.setAttribute('hidden', true)
+}
+
+
+function exposeShotBoard(){
+  shotBoard.removeAttribute('hidden')
+}
+
+function hideShotBoard(){
+  shotBoard.setAttribute('hidden', true)
+}
+
+function exposeShipBank() {
+  
+}
+
+function hideShipBank() {
+
+}
+
+
+//Ship-bank- toggle/highlight
 function vToggle() {
   shipBankH.setAttribute('hidden',true)
   shipBankV.removeAttribute('hidden')
