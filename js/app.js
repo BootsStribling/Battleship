@@ -13,6 +13,7 @@ let turn
 const prompt = document.querySelector('#prompt')
 
 //Ship Placement Buttons
+const play = document.querySelector('#play')
 const ready = document.querySelector('#ready')
 const reset = document.querySelector('#reset')
 const horizontal = document.querySelector('#horizontal')
@@ -223,19 +224,16 @@ function hToggle() {
   vertical.removeAttribute('hidden')
 }
 
-function removeHighlight(evt){
-  let target = evt.target.classList
-  if(target.contains('highlight')){
+function removeHighlight(){
     pt.forEach(pt => pt.classList.remove('highlight'))
     sub.forEach(sub => sub.classList.remove('highlight'))
     cru.forEach(cru => cru.classList.remove('highlight'))
     bat.forEach(bat => bat.classList.remove('highlight'))
     car.forEach(car => car.classList.remove('highlight'))
   }
-}
 
 function highlightShip(evt){
-  removeHighlight(evt)
+  removeHighlight()
   let target = evt.target.id
   if(
     target.includes('pt')  ||
