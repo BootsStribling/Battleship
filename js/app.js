@@ -14,18 +14,17 @@ const p2ShipInv = {
   Carrier: [5,5,5,5,5]
 }
 const p1ShipBoard =
- [ , , , , , , , , , ,
-   , , , , , , , , , ,
-   , , , , , , , , , ,
-   , , , , , , , , , , 
-   , , , , , , , , , , 
-   , , , , , , , , , , 
-   , , , , , , , , , , 
-   , , , , , , , , , , 
-   , , , , , , , , , , 
-   , , , , , , , , , , ]
+  [ , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , ]
 
-console.log(p1ShipBoard.length)
 
 const p2ShipBoard =
   [ , , , , , , , , , ,
@@ -40,28 +39,28 @@ const p2ShipBoard =
     , , , , , , , , , , ]
 
 const p1ShotBoard = 
-[ , , , , , , , , , ,
-  , , , , , , , , , ,
-  , , , , , , , , , ,
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , ]
+  [ , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , ]
 
 const p2ShotBoard = 
-[ , , , , , , , , , ,
-  , , , , , , , , , ,
-  , , , , , , , , , ,
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , 
-  , , , , , , , , , , ]
+  [ , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , ]
 
 //*------------------------------- Variables -------------------------------*//
 let turn, orientation, shipClick1, shipClick2, shipClick3, shipClick4, shipClick5, shipSpaceNum, shipSelected
@@ -374,10 +373,11 @@ function handleShipClick(evt) {
   highlightShip(evt)
   let targetId = evt.target.id
   let targetClass = evt.target.classList
-  console.dir(evt.target.classList)
   let spaces = 0
   if(targetClass.contains('square')){
+    posExtractor(evt)
     renderShip(evt)
+
   }else{
     if(targetId.includes('pt')){
       spaces = 2;
@@ -419,6 +419,18 @@ function shipPlacementLoad(){
 
 //* Helper functions *//
 
+//Position Extractor
+function posExtractor(evt){
+  let targetId = evt.target.id
+  let shipClick = null;
+  let shotClick = null;
+  if(turn === 0 || 1 && targetId.includes('g')){
+    shipClick = targetId.substring(1)
+  }
+  if(turn === 2 || 3 && targetId.includes('s')){
+    shotClick = targetId.substring(1)
+  }
+}
 
 
 //PageState Hide/Remove
@@ -455,6 +467,7 @@ function hideShipPlacement(){
   back.setAttribute('hidden', true)
   player.setAttribute('hidden', true)
   prompt.setAttribute('hidden', true)
+  hideShipBank()
 
 }
 
@@ -484,8 +497,8 @@ function exposeShipBank() {
 }
 
 function hideShipBank() {
-  shipBank.setAttribute('hidden')
-  rghtButtons.setAttribute('hidden')
+  shipBank.setAttribute('hidden', true)
+  rghtButtons.setAttribute('hidden', true)
 }
 
 
@@ -513,19 +526,16 @@ function removeHighlight(){
   }
 
 function highlightShip(evt){
+  let targetId = evt.target.id
   removeHighlight()
-  let target = evt.target.id
-
-  if(
-    target.includes('pt')  ||
-    target.includes('sub') ||
-    target.includes('cru') ||
-    target.includes('bat') ||
-    target.includes('car')
-    ){
-    evt.target.classList.add('highlight')
+  if(targetId.includes('pt')){pt.forEach(pt => pt.classList.add('highlight'))}
+  if(targetId.includes('sub')){pt.forEach(pt => pt.classList.add('highlight'))}
+  if(targetId.includes('cru')){pt.forEach(pt => pt.classList.add('highlight'))}
+  if(targetId.includes('bat')){pt.forEach(pt => pt.classList.add('highlight'))}
+  if(targetId.includes('car')){pt.forEach(pt => pt.classList.add('highlight'))}
   }
-}
+
+  
 
 //Constants
   // turn, player 1, player 2, shipinventory array of arrays, board array of arrays
