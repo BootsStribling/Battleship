@@ -22,14 +22,15 @@ const shipBankV = document.querySelector('#bank-box-v')
 const shipBankH = document.querySelector('#bank-box-h')
 
 //ship Divs
-const pt = document.querySelectorAll('.pt > div')
-const sub = document.querySelector('.sub')
-const cru = document.querySelector('.cru')
-const bat = document.querySelector('.bat')
-const car = document.querySelector('.car')
+const hShips = document.querySelectorAll('.horizontal')
+const pt = document.querySelectorAll('.pt')
+const sub = document.querySelectorAll('.sub')
+const cru = document.querySelectorAll('.cru')
+const bat = document.querySelectorAll('.bat')
+const car = document.querySelectorAll('.car')
 
 //Board Divs
-const boardSquares = document.querySelectorAll('.ship-board > div')
+const shipSquares = document.querySelectorAll('.ship-board > div')
 const g00 = document.querySelector('#g0-0')
 const g01 = document.querySelector('#g0-1')
 const g02 = document.querySelector('#g0-2')
@@ -149,16 +150,28 @@ vertical.addEventListener('click', vToggle)
 horizontal.addEventListener('click', hToggle)
 
 //ship divs
-pt.addEventListener('click', consoleLog)
-sub.addEventListener('click', highlightShip)
-cru.addEventListener('click', highlightShip)
-bat.addEventListener('click', highlightShip)
-car.addEventListener('click', highlightShip)
+pt.forEach(pt => {
+  pt.addEventListener('click', highlightShip)
+})
+sub.forEach(sub => {
+  sub.addEventListener('click', highlightShip)
+})
+cru.forEach(cru => {
+  cru.addEventListener('click', highlightShip)
+})
+bat.forEach(bat => {
+  bat.addEventListener('click', highlightShip)
+})
+car.forEach(car => {
+  car.addEventListener('click', highlightShip)
+})
+
 
 //Board Divs
-boardSquares.forEach(boardSquare => {
-  boardSquare.addEventListener('click', consoleLog)
+shipSquares.forEach(shipSquare => {
+  shipSquare.addEventListener('click', render)
 })
+
 
 
 
@@ -168,7 +181,7 @@ function consoleLog(evt){
   console.log(evt.target.id)
   console.log(evt.target.classList)
   console.dir(evt.target)
-  render(evt)
+  
 }
 turn = 0
 
@@ -210,12 +223,19 @@ function hToggle() {
   vertical.removeAttribute('hidden')
 }
 
-// function removeHighlight(){
-
-// }
+function removeHighlight(evt){
+  let target = evt.target.classList
+  if(target.contains('highlight')){
+    pt.forEach(pt => pt.classList.remove('highlight'))
+    sub.forEach(sub => sub.classList.remove('highlight'))
+    cru.forEach(cru => cru.classList.remove('highlight'))
+    bat.forEach(bat => bat.classList.remove('highlight'))
+    car.forEach(car => car.classList.remove('highlight'))
+  }
+}
 
 function highlightShip(evt){
-  // removeHighlight()
+  removeHighlight(evt)
   let target = evt.target.id
   if(
     target.includes('pt')  ||

@@ -119,7 +119,7 @@
         <div class ="square" id="g9-8" ></div>
         <div class ="square" id="g9-9" ></div>
       </section>
-      <section class="board shot-board">
+      <section class="board shot-board" hidden>
         <!-- squares id by xvalue-yvalue starting with 0 to correspond to index value -->
         <div class ="square" id="s0-0" ></div>
         <div class ="square" id="s0-1" ></div>
@@ -224,19 +224,19 @@
       </section>
     </section>
     <section class="ship-bank" id="ship-bank">
-      <section id="bank-box-h" hidden >
-        <div class = "pt" id="pt-h" ></div>
-        <div class = "sub" id="sub-h" ></div>
-        <div class = "cru" id="cru-h" ></div>
-        <div class = "bat" id="bat-h" ></div>
-        <div class = "car" id="car-h" ></div>
+      <section id="bank-box-h" >
+        <div class = "horizontal pt" id="pt-h" ></div>
+        <div class = "horizontal sub" id="sub-h" ></div>
+        <div class = "horizontal cru" id="cru-h" ></div>
+        <div class = "horizontal bat" id="bat-h" ></div>
+        <div class = "horizontal car" id="car-h" ></div>
       </section>
       <section id="bank-box-v" hidden>
-        <div id="ptv"><div class = "pt" id="pt-v"></div></div>
-        <div id="subv"><div class = "sub" id="sub-v"></div></div>
-        <div id="cruv" ><div class = "cru" id="cru-v"></div></div>
-        <div id="batv"><div class = "bat" id="bat-v"></div></div>
-        <div id="carv"><div class = "car" id="car-v"></div></div>
+        <div id="ptv"><div class = "vertical pt" id="pt-v"></div></div>
+        <div id="subv"><div class = "vertical sub" id="sub-v"></div></div>
+        <div id="cruv" ><div class = "vertical cru" id="cru-v"></div></div>
+        <div id="batv"><div class = "vertical bat" id="bat-v"></div></div>
+        <div id="carv"><div class = "vertical car" id="car-v"></div></div>
       </section>
     </section>
     
@@ -245,7 +245,7 @@
       <button class="button btn btn-danger" id="reset">Reset</button>
       <p id="hit-miss-msg"></p>
     </section>
-    <section id="right-buttons" hidden>
+    <section id="right-buttons" >
       <button id="vertical" class="btn btn-primary">Vertical</button>
       <button id="horizontal" class="btn btn-primary"hidden>Horizontal</button>
     </section>
