@@ -1,11 +1,70 @@
 //*------------------------------- Constants -------------------------------*//
-const hit = "red";
-const miss = "white";
-const shipMid = "grey";
+const p1ShipInv = {
+  Pt: [1,1],
+  Submarine: [2,2,2],
+  Cruiser: [3,3,3], 
+  Battleship: [4,4,4,4],
+  Carrier: [5,5,5,5,5]
+}
+const p2ShipInv = {
+  Pt: [1,1],
+  Submarine: [2,2,2],
+  Cruiser: [3,3,3], 
+  Battleship: [4,4,4,4],
+  Carrier: [5,5,5,5,5]
+}
+const p1ShipBoard =
+ [ , , , , , , , , , ,
+   , , , , , , , , , ,
+   , , , , , , , , , ,
+   , , , , , , , , , , 
+   , , , , , , , , , , 
+   , , , , , , , , , , 
+   , , , , , , , , , , 
+   , , , , , , , , , , 
+   , , , , , , , , , , 
+   , , , , , , , , , , ]
 
+console.log(p1ShipBoard.length)
+
+const p2ShipBoard =
+  [ , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , ,
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , 
+    , , , , , , , , , , ]
+
+const p1ShotBoard = 
+[ , , , , , , , , , ,
+  , , , , , , , , , ,
+  , , , , , , , , , ,
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , ]
+
+const p2ShotBoard = 
+[ , , , , , , , , , ,
+  , , , , , , , , , ,
+  , , , , , , , , , ,
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , 
+  , , , , , , , , , , ]
 
 //*------------------------------- Variables -------------------------------*//
-let turn 
+let turn, orientation, shipClick1, shipClick2, shipClick3, shipClick4, shipClick5, shipSpaceNum, shipSelected
 
 //*---------------------- Cached Element References ------------------------*//
 
@@ -22,10 +81,12 @@ const img = document.querySelector('#page-load-image')
 const play = document.querySelector('#play')
 const ready = document.querySelector('#ready')
 const reset = document.querySelector('#reset')
+const rghtButtons = document.querySelector('#right-buttons')
 const horizontal = document.querySelector('#horizontal')
 const vertical = document.querySelector('#vertical')
 const shipBoard = document.querySelector('.ship-board')
 const shotBoard = document.querySelector('.shot-board')
+const shipBank = document.querySelector('#ship-bank')
 const shipBankV = document.querySelector('#bank-box-v')
 const shipBankH = document.querySelector('#bank-box-h')
 
@@ -36,7 +97,7 @@ const cru = document.querySelectorAll('.cru')
 const bat = document.querySelectorAll('.bat')
 const car = document.querySelectorAll('.car')
 
-//Board Divs
+//Ship Board Divs
 const shipSquares = document.querySelectorAll('.ship-board > div')
 const g00 = document.querySelector('#g0-0')
 const g01 = document.querySelector('#g0-1')
@@ -145,6 +206,119 @@ const g97 = document.querySelector('#g9-7')
 const g98 = document.querySelector('#g9-8')
 const g99 = document.querySelector('#g9-9')
 
+//Shot-board divs
+//Ship Board Divs
+const shotSquares = document.querySelectorAll('.shot-board > div')
+const s00 = document.querySelector('#s0-0')
+const s01 = document.querySelector('#s0-1')
+const s02 = document.querySelector('#s0-2')
+const s03 = document.querySelector('#s0-3')
+const s04 = document.querySelector('#s0-4')
+const s05 = document.querySelector('#s0-5')
+const s06 = document.querySelector('#s0-6')
+const s07 = document.querySelector('#s0-7')
+const s08 = document.querySelector('#s0-8')
+const s09 = document.querySelector('#s0-9')
+
+const s10 = document.querySelector('#s1-0')
+const s11 = document.querySelector('#s1-1')
+const s12 = document.querySelector('#s1-2')
+const s13 = document.querySelector('#s1-3')
+const s14 = document.querySelector('#s1-4')
+const s15 = document.querySelector('#s1-5')
+const s16 = document.querySelector('#s1-6')
+const s17 = document.querySelector('#s1-7')
+const s18 = document.querySelector('#s1-8')
+const s19 = document.querySelector('#s1-9')
+
+const s20 = document.querySelector('#s2-0')
+const s21 = document.querySelector('#s2-1')
+const s22 = document.querySelector('#s2-2')
+const s23 = document.querySelector('#s2-3')
+const s24 = document.querySelector('#s2-4')
+const s25 = document.querySelector('#s2-5')
+const s26 = document.querySelector('#s2-6')
+const s27 = document.querySelector('#s2-7')
+const s28 = document.querySelector('#s2-8')
+const s29 = document.querySelector('#s2-9')
+
+const s30 = document.querySelector('#s3-0')
+const s31 = document.querySelector('#s3-1')
+const s32 = document.querySelector('#s3-2')
+const s33 = document.querySelector('#s3-3')
+const s34 = document.querySelector('#s3-4')
+const s35 = document.querySelector('#s3-5')
+const s36 = document.querySelector('#s3-6')
+const s37 = document.querySelector('#s3-7')
+const s38 = document.querySelector('#s3-8')
+const s39 = document.querySelector('#s3-9')
+
+const s40 = document.querySelector('#s4-0')
+const s41 = document.querySelector('#s4-1')
+const s42 = document.querySelector('#s4-2')
+const s43 = document.querySelector('#s4-3')
+const s44 = document.querySelector('#s4-4')
+const s45 = document.querySelector('#s4-5')
+const s46 = document.querySelector('#s4-6')
+const s47 = document.querySelector('#s4-7')
+const s48 = document.querySelector('#s4-8')
+const s49 = document.querySelector('#s4-9')
+
+const s50 = document.querySelector('#s5-0')
+const s51 = document.querySelector('#s5-1')
+const s52 = document.querySelector('#s5-2')
+const s53 = document.querySelector('#s5-3')
+const s54 = document.querySelector('#s5-4')
+const s55 = document.querySelector('#s5-5')
+const s56 = document.querySelector('#s5-6')
+const s57 = document.querySelector('#s5-7')
+const s58 = document.querySelector('#s5-8')
+const s59 = document.querySelector('#s0-9')
+
+const s60 = document.querySelector('#s6-0')
+const s61 = document.querySelector('#s6-1')
+const s62 = document.querySelector('#s6-2')
+const s63 = document.querySelector('#s6-3')
+const s64 = document.querySelector('#s6-4')
+const s65 = document.querySelector('#s6-5')
+const s66 = document.querySelector('#s6-6')
+const s67 = document.querySelector('#s6-7')
+const s68 = document.querySelector('#s6-8')
+const s69 = document.querySelector('#s6-9')
+
+const s70 = document.querySelector('#s7-0')
+const s71 = document.querySelector('#s7-1')
+const s72 = document.querySelector('#s7-2')
+const s73 = document.querySelector('#s7-3')
+const s74 = document.querySelector('#s7-4')
+const s75 = document.querySelector('#s7-5')
+const s76 = document.querySelector('#s7-6')
+const s77 = document.querySelector('#s7-7')
+const s78 = document.querySelector('#s7-8')
+const s79 = document.querySelector('#s7-9')
+
+const s80 = document.querySelector('#s8-0')
+const s81 = document.querySelector('#s8-1')
+const s82 = document.querySelector('#s8-2')
+const s83 = document.querySelector('#s8-3')
+const s84 = document.querySelector('#s8-4')
+const s85 = document.querySelector('#s8-5')
+const s86 = document.querySelector('#s8-6')
+const s87 = document.querySelector('#s8-7')
+const s88 = document.querySelector('#s8-8')
+const s89 = document.querySelector('#s8-9')
+
+const s90 = document.querySelector('#s9-0')
+const s91 = document.querySelector('#s9-1')
+const s92 = document.querySelector('#s9-2')
+const s93 = document.querySelector('#s9-3')
+const s94 = document.querySelector('#s9-4')
+const s95 = document.querySelector('#s9-5')
+const s96 = document.querySelector('#s9-6')
+const s97 = document.querySelector('#s9-7')
+const s98 = document.querySelector('#s9-8')
+const s99 = document.querySelector('#s9-9')
+
 
 
 
@@ -162,25 +336,25 @@ horizontal.addEventListener('click', hToggle)
 
 //ship divs
 pt.forEach(pt => {
-  pt.addEventListener('click', highlightShip)
+  pt.addEventListener('click', handleShipClick)
 })
 sub.forEach(sub => {
-  sub.addEventListener('click', highlightShip)
+  sub.addEventListener('click', handleShipClick)
 })
 cru.forEach(cru => {
-  cru.addEventListener('click', highlightShip)
+  cru.addEventListener('click', handleShipClick)
 })
 bat.forEach(bat => {
-  bat.addEventListener('click', highlightShip)
+  bat.addEventListener('click', handleShipClick)
 })
 car.forEach(car => {
-  car.addEventListener('click', highlightShip)
+  car.addEventListener('click', handleShipClick)
 })
 
 
 //Board Divs
 shipSquares.forEach(shipSquare => {
-  shipSquare.addEventListener('click', render)
+  shipSquare.addEventListener('click', renderShip)
 })
 
 
@@ -196,16 +370,42 @@ function consoleLog(evt){
 }
 turn = 0
 
-function render(evt){
+function handleShipClick(evt) {
+  highlightShip(evt)
+  let target = evt.target.id
+  let spaces = 0
+  if(target.includes('pt')){
+    spaces = 2;
+    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
+  }
+  if(target.includes('sub')){
+    spaces = 3;
+    prompt.innerText = `Please place your Submarine in ${spaces} available spaces.`
+  }
+  if(target.includes('pt')){
+    spaces = 3;
+    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
+  }
+  if(target.includes('pt')){
+    spaces = 4;
+    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
+  }
+  if(target.includes('pt')){
+    spaces = 4;
+    prompt.innerText = `Please place your PT Cruiser in ${spaces} available spaces.`
+  }
+}
+
+function renderShip(evt){
   let target = evt.target
   if(turn === 0){
-    target.style.backgroundColor = shipMid
+    target.style.backgroundColor = 'grey'
   // if(variable result of hit/miss logic){}
   // target.style.backgroundColor = hit
   // target.style.backgroundColor = miss
   }
 }
-//shipPlacement() - mechanic to prompt user and place ships
+//shipPlacementLoad() - mechanic to prompt user and place ships
 function shipPlacementLoad(){
   hidePageLoad()
   exposeShipPlacement()
@@ -217,6 +417,7 @@ function shipPlacementLoad(){
 
 //PageState Hide/Remove
 function pageLoad() {
+  hideShipPlacement()
   img.removeAttribute('hidden')
   title.removeAttribute('hidden')
   play.removeAttribute('hidden')
@@ -231,11 +432,23 @@ function hidePageLoad(){
 
 function exposeShipPlacement(){
   exposeShipBoard()
+  player.removeAttribute('hidden')
+  prompt.removeAttribute('hidden')
   player.innerText = 'Player 1'
   prompt.innerText = 'Please click the ship you wish to place then click the board sequentially where you would like it placed'
   ready.removeAttribute('hidden')
   reset.removeAttribute('hidden')
+  back.removeAttribute('hidden')
+  exposeShipBank()
+}
 
+function hideShipPlacement(){
+  hideShipBoard()
+  ready.setAttribute('hidden', true)
+  reset.setAttribute('hidden', true)
+  back.setAttribute('hidden', true)
+  player.setAttribute('hidden', true)
+  prompt.setAttribute('hidden', true)
 
 }
 
@@ -259,11 +472,14 @@ function hideShotBoard(){
 }
 
 function exposeShipBank() {
+  shipBank.removeAttribute('hidden')
+  rghtButtons.removeAttribute('hidden')
   
 }
 
 function hideShipBank() {
-
+  shipBank.setAttribute('hidden')
+  rghtButtons.setAttribute('hidden')
 }
 
 
@@ -293,6 +509,7 @@ function removeHighlight(){
 function highlightShip(evt){
   removeHighlight()
   let target = evt.target.id
+
   if(
     target.includes('pt')  ||
     target.includes('sub') ||
