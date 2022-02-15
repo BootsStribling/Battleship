@@ -14,7 +14,7 @@ const oChoices = ['horizontal','vertical']
 //*------------------------------- Variables -------------------------------*//
 //turns
 // 0-P1 Ship Placement, 1-P2 Ship Placement, 2-P1 Gameplay, 3-P2 GamePlay 
-let turn
+let turn = -1
 let shipClick, shotClick
 let shipSelected = null
 
@@ -325,6 +325,7 @@ shipSquares.forEach(shipSquare => {
 //Page loads on unhidden HTML
 //Upon click of Play Button// Loads p1 and ShipPlacementLoad
 function shipPlacementLoad(){
+  turn++
   if(turn === 0){
     player.innerText = 'Player 1'
   }
@@ -385,7 +386,8 @@ function idShipShot(evt){
   if(targetId.includes('g')){
     if(turn === 0 || turn === 1){
       posExtract(evt)
-      idValidClick()
+      //returns boolean to inform if the click is valid for ship placement
+      idValidClick(shipClick)
     }else{
       prompt.innerText = 'You cannot change the position of your ships when you have gone to battle.'
     }
@@ -393,6 +395,17 @@ function idShipShot(evt){
     posExtract(evt)
   }
   }
+}
+
+function idValidClick(){
+  //should check ship orientation to determine ship model on board
+    //pt
+      //function to simulate runnout of ship [y,x] values based on ship space numbers
+      //check if any off the numbers runnout match values in the p1/2shipsarray
+    //sub
+    //cru
+    //bat
+    //car
 }
 
 function renderShip(){
