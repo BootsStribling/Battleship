@@ -397,25 +397,27 @@ function idShipShot(evt){
   }
 }
 
-function idValidClick(){
+function idValidClick(shipClick){
   //should check ship orientation to determine ship model on board
-  if()
+  console.log(shipClick[0])
+  if(shipSpaces.some(space => shipSpaces[space] === shipClick[0] )){
+    console.log('Not a valid space')
+  }else{
+
     if(or === 'vertical'){
       shipSpaces.push(shipClick)
-      for(let i = 0; i < shipSpaceNum-1; i++){
-        // console.log(shipClick)
-        shipSpaces.push([(shipClick[i] + 1), shipClick[1]])
+      for(let i = 1; i < shipSpaceNum; i++){
+        shipSpaces.push([(shipClick[0] + i), shipClick[1]])
       }
-      console.log(shipSpaces)
     }
     if(or === 'horizontal'){
-      shipSpaces.push(shipClick)
-      for(let i = 0; i < shipSpaceNum-1; i++){
-        //console.log(shipClick)
-        shipSpaces.push([shipClick[1], (shipClick[i] + 1)])
+      for(let i = 1; i < shipSpaceNum; i++){
+        shipSpaces.push([shipClick[0], (shipClick[1] + i)])
+        //console.log(shipSpaces)
       }
-      console.log(shipSpaces)
     }
+  }
+}
     //pt
       //function to simulate runnout of ship [y,x] values based on shipSpaceNumbers and shipSelected
       //check if any off the numbers runnout match values in the p1/2shipsarray
@@ -424,7 +426,7 @@ function idValidClick(){
     //cru
     //bat
     //car
-}
+
 
 function renderShip(){
   p1Ships.forEach((pos) => {
