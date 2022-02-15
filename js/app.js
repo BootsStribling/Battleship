@@ -1,67 +1,22 @@
 //*------------------------------- Constants -------------------------------*//
-const p1ShipBoard = [
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ],
-]
+const p1Ships = []
+const p2Ships = []
+const p1Shots = []
+const p2Shots = []
+let p1ShipInv = [2, 3, 3, 4, 5]
+let p2ShipInv = [2, 3, 3, 4, 5]
 
-const p2ShipBoard = [
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ],
-]
 
-const p1ShotBoard = [
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ],
-]
-
-const p2ShotBoard = [
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ],
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ], 
-  [ , , , , , , , , , ],
-]
 //1-PT Boat, 2-Submarine, 3-Cruiser, 4-Battleship, 5-Carrier
-const shipsChoices = [1,2,3,4,5]
 
 const oChoices = ['horizontal','vertical']
 
 //*------------------------------- Variables -------------------------------*//
 //turns
 // 0-P1 Ship Placement, 1-P2 Ship Placement, 2-P1 Gameplay, 3-P2 GamePlay 
-let turn = 0
-let p1ShipInv = [2, 3, 3, 4, 5]
-let p2ShipInv = [2, 3, 3, 4, 5]
-let shipSpaceNum, shotClickx, shotClicky, shipClickx, shipClicky, shipClick1, shipClick2, shipClick3, shipClick4, shipClick5
+let turn
+let shipClick, shotClick
+let shipSelected = null
 
 //*---------------------- Cached Element References ------------------------*//
 
@@ -76,7 +31,8 @@ const img = document.querySelector('#page-load-image')
 
 //Ship Placement Buttons
 const play = document.querySelector('#play')
-const ready = document.querySelector('#ready')
+const ready1 = document.querySelector('#ready1')
+const ready2 = document.querySelector('#ready2')
 const reset = document.querySelector('#reset')
 const rghtButtons = document.querySelector('#right-buttons')
 const horizontal = document.querySelector('#horizontal')
@@ -326,10 +282,19 @@ play.addEventListener('click', shipPlacementLoad)
 
 //Ship Placement Buttons
 back.addEventListener('click', pageLoad)
-ready.addEventListener('click', hideShipBoard)
 reset.addEventListener('click', exposeShipBoard)
 vertical.addEventListener('click', vToggle)
 horizontal.addEventListener('click', hToggle)
+ready1.addEventListener('click', () => {
+  if(p1Ships.length === 5){
+    turn = 1 
+    shipPlacementLoad
+  }else{prompt.innerText = 'You must finish placing your ships'}})
+ready2.addEventListener('click',() => {
+  if(p1Ships.length === 5){
+    turn = 2 
+    gamePageLoad
+  }else{prompt.innerText = 'You must finish placing your ships'}})
 
 //ship divs
 pt.forEach(pt => {
@@ -357,105 +322,170 @@ shipSquares.forEach(shipSquare => {
 
 
 //*------------------------------ Functions --------------------------------*//
-
-function consoleLog(evt){
-  console.log(evt.target.id)
-  console.log(evt.target.classList)
-  console.dir(evt.target)
-  
-}
-
-// function renderShot(evt){
-//   let target = evt.target
-//   if(target.)
-// }
-//shipPlacementLoad() - mechanic to prompt user and place ships
+//Page loads on unhidden HTML
+//Upon click of Play Button// Loads p1 and ShipPlacementLoad
 function shipPlacementLoad(){
+  if(turn === 0){
+    player.innerText = 'Player 1'
+  }
+  if(turn === 1){
+    player.innerText = 'Player 2'
+  }
+  prompt.innerText = 'Please click a ship and then click a space to place it'
   hidePageLoad()
   exposeShipPlacement()
-  //if turn is 0 - prompt P1 to choose a ship
 }
 
 function handleShipClick(evt) {
   let targetId = evt.target.id
   let targetClass = evt.target.classList
-  let targetFill = evt.target.style.backgroundColor
-  console.log(evt.target.style.backgroundColor)
-  console.log(typeof targetFill)
-  if(targetFill === ''){
     if(targetClass.contains('square')){
-      posExtract(evt)
-      renderShip(evt)
+      if(shipSelected === null){
+        prompt.innerText = 'You must first select a ship'
+      }else{
+        idShipShot(evt)
+        p1Ships.push(shipClick)
+        renderShip()
+      }
     }else{
       highlightShip(evt)
       if(targetId.includes('pt')){
         shipSpaceNum = 2;
         prompt.innerText = `Please place your PT Cruiser in ${shipSpaceNum} available spaces.`
+        shipSelected = 'pt'
       }
       if(targetId.includes('sub')){
         shipSpaceNum = 3;
         prompt.innerText = `Please place your Submarine in ${shipSpaceNum} available spaces.`
+        shipSelected = 'sub'
       }
       if(targetId.includes('cru')){
         shipSpaceNum = 3;
         prompt.innerText = `Please place your Cruiser in ${shipSpaceNum} available spaces.`
+        shipSelected = 'cru'
       }
       if(targetId.includes('bat')){
         shipSpaceNum = 4;
         prompt.innerText = `Please place your Battleship in ${shipSpaceNum} available spaces.`
+        shipSelected = 'bat'
       }
       if(targetId.includes('car')){
         shipSpaceNum = 5;
         prompt.innerText = `Please place your Carrier in ${shipSpaceNum} available spaces.`
+        shipSelected = 'car'
       }
     }
+    console.log(p1Ships)
+  }
+  
+
+
+function idShipShot(evt){
+  let targetId = evt.target.id 
+  if(targetId.includes('g')){
+    if(turn === 0 || turn === 1){
+      posExtract(evt)
+      idValidClick()
+    }else{
+      prompt.innerText = 'You cannot change the position of your ships when you have gone to battle.'
+    }
+  if(targetId.includes('s')){
+    posExtract(evt)
+  }
+  }
+}
+
+function renderShip(){
+  p1Ships.forEach((pos) => {
+    let square = document.querySelector(`#g${pos[0]}-${pos[1]}`)
+    console.dir(square)
+    square.style.backgroundColor = 'grey'
+  })
+}
+
+function posExtract(evt){
+  let targetId = evt.target.id
+  shipClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
+  shotClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
+}
+function gamePageLoad(p1Ships, p2Ships){
+  if(p1Ships.length || p2Ships.length === 0){
+    getWinner()
+    renderWinner(winner)
   }else{
-    prompt.innerText = 'Please choose a different square'
-  }  
-}
-function renderShip(evt){
-  let target = evt.target
-  if(turn === 0 || 1){
-    target.style.backgroundColor = 'grey'
+    renderP1Game()
   }
 }
 
-function randomShips(){
-  for(let i = 0; i < shipsChoices.length; i++){
-    let orientation = oChoices[Math.floor(Math.random()* 2)]
-    p1ShipBoard[i] = Math.floor(Math.random() * 9)
-    p1ShipBoard[i][i] = Math.floor(Math.random() * 9)
+function handleShotClick(evt){
+  let target = evt.target.id
+  if(target.includes('g')){
+    return
   }
+  if(target.includes('s')){
+    posExtract(evt) //returns [y,x] values of shot in an array already handling which board was clicked
+    //if turn is even - it's p1's turn, push that [y,x] shot value to p1Shots array
+    if(turn % 2 !== 0){
+      p1Shots.push()
+    }
+  }
+}
+  //ignore clicks on ship board
+  // if()
+  // identify click on shot board
+  // compare id of click on shot board to opponent shipboard
+  // if match to opponent ship board return 'hit'
+  //remove opponent matched item from ship inventory array
+  //renderShot()
+  //move to next game
+
+
+function renderP1Game(){
+  
 
 }
-randomShips();
+
+function renderP2Game(){
+
+}
+
+function getWinner(){
+  if(p1Ships.length === 0){
+    winner = player2
+  }
+  if(p2Ships.length === 0){
+    winner = player1
+  }
+  return winner
+}
+
+function renderWinner(){
+
+}
+
 
 //* Helper functions *//
 
+//find valid locations
+//account for any ships already on the board
+//ship click is [y,x]
+// function validLocate(shipClick){
+//   let validLocations = []
+//   if(targetId.includes('pt')){
+//     let vlength = p1ShipInv[0] + shipClick[0]
+//     let hlength = p1ShipInv[1] + shipClick[0]
+//     if(p1Ships.length === 0){
+//       validy = [0,1,2,3,4,5,6,7,8]
+//       validx = [0,1,2,3,4,5,6,7,8]
+//     }else{
 
-//PlaceShipCylce
-// function placeShipCycle(){
-//   if(turn === 0){
-//     for(let i = 0; i < p1ShipInv.length; i){
-//       for(let a = 0; a < p1ShipInv[i].length; a++){
-//         prompt.innerText = ''
-//       }
 //     }
-//   }
-//   if(turn === 1){
-
+  
 //   }
 // }
+
+
 //Position Extractor function
-function posExtract(evt){
-  let targetId = evt.target.id
-  if(turn === 0 || 1 && targetId.includes('g')){
-    shipClick = parseInt(targetId.substring(1))
-  }
-  if(turn === 2 || 3 && targetId.includes('s')){
-    shotClickx = parseInt(targetId.substring(1))
-  }
-}
 
 
 //PageState Hide/Remove
@@ -477,9 +507,9 @@ function exposeShipPlacement(){
   exposeShipBoard()
   player.removeAttribute('hidden')
   prompt.removeAttribute('hidden')
-  ready.removeAttribute('hidden')
   reset.removeAttribute('hidden')
   back.removeAttribute('hidden')
+  if(turn === 0){ready1.removeAttribute('hidden')}else{ready2.removeAttribute('hidden')}
   exposeShipBank()
 }
 
@@ -543,7 +573,6 @@ function hToggle() {
 }
 
 function removeHighlight(){
-    console.log('removeHighlight fired')
     pt.forEach(pt => pt.classList.remove('highlight'))
     sub.forEach(sub => sub.classList.remove('highlight'))
     cru.forEach(cru => cru.classList.remove('highlight'))
@@ -555,10 +584,10 @@ function highlightShip(evt){
   let targetId = evt.target.id
   removeHighlight()
   if(targetId.includes('pt')){pt.forEach(pt => pt.classList.add('highlight'))}
-  if(targetId.includes('sub')){pt.forEach(pt => pt.classList.add('highlight'))}
-  if(targetId.includes('cru')){pt.forEach(pt => pt.classList.add('highlight'))}
-  if(targetId.includes('bat')){pt.forEach(pt => pt.classList.add('highlight'))}
-  if(targetId.includes('car')){pt.forEach(pt => pt.classList.add('highlight'))}
+  if(targetId.includes('sub')){sub.forEach(sub => sub.classList.add('highlight'))}
+  if(targetId.includes('cru')){cru.forEach(cru => cru.classList.add('highlight'))}
+  if(targetId.includes('bat')){bat.forEach(bat => bat.classList.add('highlight'))}
+  if(targetId.includes('car')){car.forEach(car => car.classList.add('highlight'))}
   }
 
   
