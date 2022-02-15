@@ -1,16 +1,4 @@
 //*------------------------------- Constants -------------------------------*//
-const p1ShipInv = [2, 3, 3, 4, 5]
-
-
-const p2ShipInv = {
-  Pt: 2,
-  Submarine: 3,
-  Cruiser: 3, 
-  Battleship: 4,
-  Carrier: 5
-}
-
-
 const p1ShipBoard = [
   [ , , , , , , , , , ],
   [ , , , , , , , , , ],
@@ -24,49 +12,55 @@ const p1ShipBoard = [
   [ , , , , , , , , , ],
 ]
 
-const p2ShipBoard =
-  [ , , , , , , , , , ,
-    , , , , , , , , , ,
-    , , , , , , , , , ,
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , ]
+const p2ShipBoard = [
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ],
+]
 
-const p1ShotBoard = 
-  [ , , , , , , , , , ,
-    , , , , , , , , , ,
-    , , , , , , , , , ,
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , ]
+const p1ShotBoard = [
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ],
+]
 
-const p2ShotBoard = 
-  [ , , , , , , , , , ,
-    , , , , , , , , , ,
-    , , , , , , , , , ,
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , 
-    , , , , , , , , , , ]
+const p2ShotBoard = [
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ],
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ], 
+  [ , , , , , , , , , ],
+]
+//1-PT Boat, 2-Submarine, 3-Cruiser, 4-Battleship, 5-Carrier
+const shipsChoices = [1,2,3,4,5]
 
-
+const oChoices = ['horizontal','vertical']
 
 //*------------------------------- Variables -------------------------------*//
-let orientation = ''
 //turns
 // 0-P1 Ship Placement, 1-P2 Ship Placement, 2-P1 Gameplay, 3-P2 GamePlay 
 let turn = 0
+let p1ShipInv = [2, 3, 3, 4, 5]
+let p2ShipInv = [2, 3, 3, 4, 5]
 let shipSpaceNum, shotClickx, shotClicky, shipClickx, shipClicky, shipClick1, shipClick2, shipClick3, shipClick4, shipClick5
 
 //*---------------------- Cached Element References ------------------------*//
@@ -380,11 +374,8 @@ function shipPlacementLoad(){
   hidePageLoad()
   exposeShipPlacement()
   //if turn is 0 - prompt P1 to choose a ship
-  if(p1ShipInv.length > 0){
-
-  }
-  // storeShip()
 }
+
 function handleShipClick(evt) {
   let targetId = evt.target.id
   let targetClass = evt.target.classList
@@ -426,27 +417,43 @@ function renderShip(evt){
   let target = evt.target
   if(turn === 0 || 1){
     target.style.backgroundColor = 'grey'
-  // if(variable result of hit/miss logic){}
-  // target.style.backgroundColor = hit
-  // target.style.backgroundColor = miss
   }
 }
+
+function randomShips(){
+  for(let i = 0; i < shipsChoices.length; i++){
+    let orientation = oChoices[Math.floor(Math.random()* 2)]
+    p1ShipBoard[i] = Math.floor(Math.random() * 9)
+    p1ShipBoard[i][i] = Math.floor(Math.random() * 9)
+  }
+
+}
+randomShips();
 
 //* Helper functions *//
 
 
+//PlaceShipCylce
+// function placeShipCycle(){
+//   if(turn === 0){
+//     for(let i = 0; i < p1ShipInv.length; i){
+//       for(let a = 0; a < p1ShipInv[i].length; a++){
+//         prompt.innerText = ''
+//       }
+//     }
+//   }
+//   if(turn === 1){
+
+//   }
+// }
 //Position Extractor function
 function posExtract(evt){
   let targetId = evt.target.id
   if(turn === 0 || 1 && targetId.includes('g')){
-    shipClickx = parseInt(targetId.substring(1,2))
-    shipClicky = parseInt(targetId.substring(3))
-    shipClick = [shipClickx, shipClicky]
+    shipClick = parseInt(targetId.substring(1))
   }
   if(turn === 2 || 3 && targetId.includes('s')){
-    shotClickx = parseInt(targetId.substring(1,2))
-    shotClicky = parseInt(targetId.substring(3))
-    shotClick = [shotClickx, shotClicky]
+    shotClickx = parseInt(targetId.substring(1))
   }
 }
 
