@@ -9,14 +9,15 @@ let p2ShipInv = [2, 3, 3, 4, 5]
 
 //1-PT Boat, 2-Submarine, 3-Cruiser, 4-Battleship, 5-Carrier
 
-const oChoices = ['horizontal','vertical']
-
 //*------------------------------- Variables -------------------------------*//
 //turns
 // 0-P1 Ship Placement, 1-P2 Ship Placement, 2-P1 Gameplay, 3-P2 GamePlay 
 let turn = -1
 let shipClick, shotClick
 let shipSelected = null
+//orientation
+let or = 'horizontal'
+let shipSpaces = []
 
 //*---------------------- Cached Element References ------------------------*//
 
@@ -345,8 +346,8 @@ function handleShipClick(evt) {
         prompt.innerText = 'You must first select a ship'
       }else{
         idShipShot(evt)
-        p1Ships.push(shipClick)
-        renderShip()
+        p1Ships.push(shipSpaces)
+        // renderShip()
       }
     }else{
       highlightShip(evt)
@@ -376,7 +377,6 @@ function handleShipClick(evt) {
         shipSelected = 'car'
       }
     }
-    console.log(p1Ships)
   }
   
 
@@ -399,9 +399,27 @@ function idShipShot(evt){
 
 function idValidClick(){
   //should check ship orientation to determine ship model on board
+  if()
+    if(or === 'vertical'){
+      shipSpaces.push(shipClick)
+      for(let i = 0; i < shipSpaceNum-1; i++){
+        // console.log(shipClick)
+        shipSpaces.push([(shipClick[i] + 1), shipClick[1]])
+      }
+      console.log(shipSpaces)
+    }
+    if(or === 'horizontal'){
+      shipSpaces.push(shipClick)
+      for(let i = 0; i < shipSpaceNum-1; i++){
+        //console.log(shipClick)
+        shipSpaces.push([shipClick[1], (shipClick[i] + 1)])
+      }
+      console.log(shipSpaces)
+    }
     //pt
-      //function to simulate runnout of ship [y,x] values based on ship space numbers
+      //function to simulate runnout of ship [y,x] values based on shipSpaceNumbers and shipSelected
       //check if any off the numbers runnout match values in the p1/2shipsarray
+      //check to make sure any of the runnout numbers are less than 9- anymore is off the board
     //sub
     //cru
     //bat
@@ -430,19 +448,19 @@ function gamePageLoad(p1Ships, p2Ships){
   }
 }
 
-function handleShotClick(evt){
-  let target = evt.target.id
-  if(target.includes('g')){
-    return
-  }
-  if(target.includes('s')){
-    posExtract(evt) //returns [y,x] values of shot in an array already handling which board was clicked
-    //if turn is even - it's p1's turn, push that [y,x] shot value to p1Shots array
-    if(turn % 2 !== 0){
-      p1Shots.push()
-    }
-  }
-}
+// function handleShotClick(evt){
+//   let target = evt.target.id
+//   if(target.includes('g')){
+//     return
+//   }
+//   if(target.includes('s')){
+//     posExtract(evt) //returns [y,x] values of shot in an array already handling which board was clicked
+//     //if turn is even - it's p1's turn, push that [y,x] shot value to p1Shots array
+//     if(turn % 2 !== 0){
+//       p1Shots.push()
+//     }
+//   }
+// }
   //ignore clicks on ship board
   // if()
   // identify click on shot board
@@ -478,27 +496,6 @@ function renderWinner(){
 
 
 //* Helper functions *//
-
-//find valid locations
-//account for any ships already on the board
-//ship click is [y,x]
-// function validLocate(shipClick){
-//   let validLocations = []
-//   if(targetId.includes('pt')){
-//     let vlength = p1ShipInv[0] + shipClick[0]
-//     let hlength = p1ShipInv[1] + shipClick[0]
-//     if(p1Ships.length === 0){
-//       validy = [0,1,2,3,4,5,6,7,8]
-//       validx = [0,1,2,3,4,5,6,7,8]
-//     }else{
-
-//     }
-  
-//   }
-// }
-
-
-//Position Extractor function
 
 
 //PageState Hide/Remove
@@ -574,7 +571,7 @@ function vToggle() {
   shipBankV.removeAttribute('hidden')
   vertical.setAttribute('hidden',true)
   horizontal.removeAttribute('hidden')
-  orientation = 'vertical'
+  or = 'vertical'
 }
 
 function hToggle() {
@@ -582,7 +579,7 @@ function hToggle() {
   shipBankH.removeAttribute('hidden')
   horizontal.setAttribute('hidden', true)
   vertical.removeAttribute('hidden')
-  orientation = 'horizontal'
+  or = 'horizontal'
 }
 
 function removeHighlight(){
