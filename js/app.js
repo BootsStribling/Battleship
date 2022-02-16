@@ -397,27 +397,66 @@ function idShipShot(evt){
   }
 }
 
-function idValidClick(shipClick){
-  //should check ship orientation to determine ship model on board
-  console.log(shipClick[0])
-  if(shipSpaces.some(space => space[0] === shipClick[0])){
-    console.log('Not a valid space')
-  }else{
+function getMatch(){
+  if(shipSpaces.some(space => {(space[0] === shipClick[0]) && (space[1] === shipClick[1])})){
+    return true
+  }
+  // let xMatches = shipSpaces.some(space => space[1] === shipClick[1])
+  // if(yMatches === true){
+  //   if(xMatches === true){
+  //     return true
+  //   }else{
+  //     return false
+  //   }
+  // }
+}
 
-    if(or === 'vertical'){
-      shipSpaces.push(shipClick)
-      for(let i = 1; i < shipSpaceNum; i++){
-        shipSpaces.push([(shipClick[0] + i), shipClick[1]])
+function idValidClick(shipClick){
+  shipSpaces.push(shipClick)
+  let yOnBoard = (shipClick[0] + shipSpaceNum) <= 10
+  let xOnBoard = (shipClick[1] + shipSpaceNum) <= 10
+  console.log()
+  if(getMatch()){
+    prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
+    shipSpaces.pop()
+    console.log('That ship is overlapping')
+    }else{
+      if(or === 'vertical'){
+        if(yOnBoard){
+        for(let i = 1; i < shipSpaceNum; i++){
+          shipSpaces.push([(shipClick[0] + i), shipClick[1]])
+        }
+        console.log('ship is on the board - y')
+        renderShip()
+        }else{
+          prompt.innerText = 'That ship will is off the board, please place it elsewhere'
+          console.log('ship is off the board -y')
+          shipSpaces.pop()
+        }
       }
-    }
-    if(or === 'horizontal'){
-      for(let i = 1; i < shipSpaceNum; i++){
-        shipSpaces.push([shipClick[0], (shipClick[1] + i)])
-        //console.log(shipSpaces)
+      if(or === 'horizontal'){
+        if(xOnBoard){
+        for(let i = 1; i < shipSpaceNum; i++){
+          shipSpaces.push([shipClick[0], (shipClick[1] + i)])
+        }
+        renderShip()
+        console.log('ship is on the board - x')
+        }else{
+          prompt.innerText = 'That ship will is off the board, please place it elsewhere'
+          console.log('ship is off the board -x')
+          shipSpaces.pop()
+        }
       }
     }
   }
-}
+  // }else if(){
+  //       prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
+  //       shipSpaces.pop()
+  //   }
+  // console.log(p1Ships)
+  // renderShip()
+
+
     //pt
       //function to simulate runnout of ship [y,x] values based on shipSpaceNumbers and shipSelected
       //check if any off the numbers runnout match values in the p1/2shipsarray
@@ -429,9 +468,10 @@ function idValidClick(shipClick){
 
 
 function renderShip(){
-  p1Ships.forEach((pos) => {
+  shipSpaces.forEach((pos) => {
+    // console.log(pos[0])
     let square = document.querySelector(`#g${pos[0]}-${pos[1]}`)
-    console.dir(square)
+    // console.log(square)
     square.style.backgroundColor = 'grey'
   })
 }
