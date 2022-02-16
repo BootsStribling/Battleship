@@ -122,9 +122,9 @@ section#bank-box-h{
   align-items: center;
   background-color: whitesmoke;
   min-width: 15vw;
-  max-width: 20vw;
   min-height: 40vh;
   border-radius: 5px;
+  border: 5px solid grey;
 }
 
 section#bank-box-v{
@@ -139,7 +139,6 @@ section#bank-box-v{
   align-items: center;
   background-color: whitesmoke;
   min-width: 15vw;
-  max-width: 20vw;
   min-height: 40vh;
   padding: 10px;
   border-radius: 5px;
@@ -153,10 +152,9 @@ section#bank-box-v{
 }
 
 #pt-h, #sub-h, #cru-h, #bat-h, #car-h{
-  font-size: 1.5vmin;
   background-color: darkgray;
   height: 3vmin;
-  margin: 1vmin;
+  margin: 2vmin 4px 2vmin 4px;
 }
 #pt-h{
   width: 8vmin;

@@ -106,6 +106,7 @@ const g46 = document.querySelector('#g4-6')
 const g47 = document.querySelector('#g4-7')
 const g48 = document.querySelector('#g4-8')
 const g49 = document.querySelector('#g4-9')
+
 const g50 = document.querySelector('#g5-0')
 const g51 = document.querySelector('#g5-1')
 const g52 = document.querySelector('#g5-2')
@@ -116,6 +117,7 @@ const g56 = document.querySelector('#g5-6')
 const g57 = document.querySelector('#g5-7')
 const g58 = document.querySelector('#g5-8')
 const g59 = document.querySelector('#g0-9')
+
 const g60 = document.querySelector('#g6-0')
 const g61 = document.querySelector('#g6-1')
 const g62 = document.querySelector('#g6-2')
@@ -398,57 +400,81 @@ function idShipShot(evt){
 }
 
 function getMatch(){
-  if(shipSpaces.some(space => {(space[0] === shipClick[0]) && (space[1] === shipClick[1])})){
-    return true
+  let tempShip = []
+  shipClick.join('')
+  tempShip.push(shipClick)
+  console.log(shipClick)
+  // console.log(tempShip)
+  // console.log(shipSpaces)
+  if(or === 'vertical'){
+      for(let i = 1; i < shipSpaceNum; i++){
+        tempShip.push(((shipClick[0] + i), shipClick[1]).join(''))
+      }
+    }
+  if(or === 'horizontal'){
+    let pos
+    for(let i = 1; i < shipSpaceNum; i++){
+      pos = [(shipClick[0] + i), shipClick[1]]
+      console.log(shipClick)
+      // console.log(pos)
+      // tempShip.push((pos.join('')))
+      // console.log(tempShip)
+    }
   }
-  // let xMatches = shipSpaces.some(space => space[1] === shipClick[1])
-  // if(yMatches === true){
-  //   if(xMatches === true){
-  //     return true
-  //   }else{
-  //     return false
-  //   }
-  // }
+  // console.log(tempShip)
 }
+  // console.log(tempShip)
+  
+//   if(shipSpaces.includes(tempShip[0])){
+//     console.log('first if fired')
+//     console.log(tempShip)
+//     console.log(shipSpaces)
+//       if(shipSpaces.includes(tempShip.forEach(space => space[1]))){
+//         console.log('its true')
+//         // return true
+//       }
+//   }
+// }
 
 function idValidClick(shipClick){
   shipSpaces.push(shipClick)
   let yOnBoard = (shipClick[0] + shipSpaceNum) <= 10
   let xOnBoard = (shipClick[1] + shipSpaceNum) <= 10
-  console.log()
   if(getMatch()){
     prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
     shipSpaces.pop()
     console.log('That ship is overlapping')
-    }else{
-      if(or === 'vertical'){
-        if(yOnBoard){
-        for(let i = 1; i < shipSpaceNum; i++){
-          shipSpaces.push([(shipClick[0] + i), shipClick[1]])
-        }
-        console.log('ship is on the board - y')
-        renderShip()
-        }else{
-          prompt.innerText = 'That ship will is off the board, please place it elsewhere'
-          console.log('ship is off the board -y')
-          shipSpaces.pop()
-        }
+  }else{
+    if(or === 'vertical'){
+      if(yOnBoard){
+      for(let i = 1; i < shipSpaceNum; i++){
+        shipSpaces.push([(shipClick[0] + i), shipClick[1]])
       }
-      if(or === 'horizontal'){
-        if(xOnBoard){
-        for(let i = 1; i < shipSpaceNum; i++){
-          shipSpaces.push([shipClick[0], (shipClick[1] + i)])
-        }
-        renderShip()
-        console.log('ship is on the board - x')
-        }else{
-          prompt.innerText = 'That ship will is off the board, please place it elsewhere'
-          console.log('ship is off the board -x')
-          shipSpaces.pop()
-        }
+      console.log('ship is on the board - y')
+      renderShip()
+      }else{
+        prompt.innerText = 'That ship is off the board, please place it elsewhere'
+        console.log('ship is off the board -y')
+        shipSpaces.pop()
       }
     }
-  }
+    if(or === 'horizontal'){
+      if(xOnBoard){
+      for(let i = 1; i < shipSpaceNum; i++){
+        shipSpaces.push([shipClick[0], (shipClick[1] + i)])
+      }
+      renderShip()
+      console.log('ship is on the board - x')
+      }else{
+        prompt.innerText = 'That ship will is off the board, please place it elsewhere'
+        console.log('ship is off the board -x')
+        shipSpaces.pop()
+      }
+    }
+    }
+}
+  //   console.log(shipSpaces)
+  // }
   // }else if(){
   //       prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
   //       shipSpaces.pop()
