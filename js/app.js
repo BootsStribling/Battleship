@@ -400,7 +400,7 @@ function idShipShot(evt){
 function idValidClick(shipClick){
   //should check ship orientation to determine ship model on board
   console.log(shipClick[0])
-  if(shipSpaces.some(space => shipSpaces[space] === shipClick[0] )){
+  if(shipSpaces.some(space => space[0] === shipClick[0])){
     console.log('Not a valid space')
   }else{
 
