@@ -348,24 +348,19 @@ function shipPlacementLoad(){
 }
 
 function gamePageLoad(){
-  if(p1Ships.length === 0 || p2Ships.length === 0){
-    getWinner()
-    renderWinner(winner)
+  prompt.innerText = 'the eyes of Texas are upon you'
+  clearShipBoard()
+  hideShipBank()
+  exposeShotBoard()
+  ready2.setAttribute('hidden', true)
+  back.setAttribute('hidden', true)
+  if(turn % 2 === 0){
+    player.innerText = 'Player 1'
   }else{
-    prompt.innerText = 'the eyes of Texas are upon you'
-    clearShipBoard()
-    hideShipBank()
-    exposeShotBoard()
-    ready2.setAttribute('hidden', true)
-    back.setAttribute('hidden', true)
-    if(turn % 2 === 0){
-      player.innerText = 'Player 1'
-    }else{
-      player.innerText = 'Player 2'
-    }
-    renderShipBoard()
-    renderShotBoard()
+    player.innerText = 'Player 2'
   }
+  renderShipBoard()
+  renderShotBoard()
 }
 
 function renderShipBoard(){
@@ -386,14 +381,33 @@ function renderShipBoard(){
 
 function renderShotBoard(){
   //check if turn is odd or even
-    //if player 1 - even
-      // loop through each shot in p1Shots array and check if coord is hit or miss from h or m annotation joined with coord 
-        // if m annotation - miss - render background color white
-        // if h annotation - hit - render background color red
-    //if player 2 - odd
-      // loop through each shot in p2Shots array and check if coord is hit or miss from h or m annotation joined with coord 
-        // if m annotation - miss - render background color white
-        // if h annotation - hit - render background color red
+  if(turn % 2 === 0){
+    p1Hits.forEach(coord => {
+      let hit = document.querySelector(`#s${coord.substring(0,1)}-${coord.substring(1,2)}`)
+      hit.style.backgroundColor = 'red'
+    })
+    p1Miss.forEach(coord => {
+      let miss = document.querySelector(`#s${coord.substring(0,1)}-${coord.substring(1,2)}`)
+      miss.style.backgroundColor = 'white'
+    })
+  }else{
+    p2Hits.forEach(coord => {
+      let hit = document.querySelector(`#s${coord.substring(0,1)}-${coord.substring(1,2)}`)
+      hit.style.backgroundColor = 'red'
+    })
+    p2Miss.forEach(coord => {
+      let miss = document.querySelector(`#s${coord.substring(0,1)}-${coord.substring(1,2)}`)
+      miss.style.backgroundColor = 'white'
+    })
+  }
+}
+
+function renderWinner(){
+  if(winner = 'p1'){
+
+  }else{
+
+  }
 }
 
 function handleShotClick(evt){
@@ -412,8 +426,22 @@ function handleShotClick(evt){
       }
     }
   }
-  gamePageLoad()
+  renderShotBoard()
+  if(p1Ships.length === 0 || p2Ships.length === 0){
+    if(p1Ships.length === 0){
+      winner = 'p2'
+      console.log(winner)
+    }else{
+      winner = 'p1'
+      console.log(winner)
+    }
+    renderWinner(winner)
+  }
   //check if evt is ship or shot with idShipShot- this will handle click ship div click errors- idShipShot will return with 
+}
+
+function changeTurnLoad(){
+  
 }
 
 function testGameState(){
@@ -459,8 +487,6 @@ function handleShipClick(evt) {
     }
   }
   
-
-
 function checkHitMiss(){
   if(turn % 2 === 0){
     let match = false
@@ -471,7 +497,7 @@ function checkHitMiss(){
         p1Hits.push(shotClick)
         p2Ships.splice(idx,1)
         console.log('hit')
-        console.log(p2Ships)
+        
         return
       }else{
       }
@@ -480,8 +506,6 @@ function checkHitMiss(){
       p1Miss.push(shotClick)
       console.log('miss')
     }
-    console.log(p1Hits)
-    console.log(p1Miss)
     return match
   }else{
     let match = false
@@ -492,7 +516,6 @@ function checkHitMiss(){
         p2Hits.push(shotClick)
         p1Ships.splice(idx,1)
         console.log('hit')
-        console.log(p1Ships)
         return
       }else{
       }
@@ -501,8 +524,6 @@ function checkHitMiss(){
       p2Miss.push(shotClick)
       console.log('miss')
     }
-    console.log(p2Hits)
-    console.log(p2Miss)
     return match
   }
 }
