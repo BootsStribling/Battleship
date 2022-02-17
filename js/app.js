@@ -289,15 +289,17 @@ reset.addEventListener('click', exposeShipBoard)
 vertical.addEventListener('click', vToggle)
 horizontal.addEventListener('click', hToggle)
 ready1.addEventListener('click', () => {
-  if(p1Ships.length === 5){
-    turn = 1 
-    
-    shipPlacementLoad
+  if(joinedSpaces.length === 17){
+    joinedSpaces.forEach(coord => p1Ships.push(coord))
+    joinedSpaces = []
+    shipPlacementLoad()
   }else{prompt.innerText = 'You must finish placing your ships'}})
 ready2.addEventListener('click',() => {
-  if(p2Ships.length === 5){
-    turn = 2 
-    gamePageLoad
+  if(joinedSpaces.length === 17){
+    turn = 2
+    joinedSpaces.forEach(coord => p2Ships.push(coord))
+    joinedSpaces = []
+    gamePageLoad()
   }else{prompt.innerText = 'You must finish placing your ships'}})
 
 //ship divs
@@ -335,10 +337,23 @@ function shipPlacementLoad(){
   }
   if(turn === 1){
     player.innerText = 'Player 2'
+    resetShip()
+    clearShipBoard()
   }
   prompt.innerText = 'Please click a ship and then click a space to place it'
   hidePageLoad()
   exposeShipPlacement()
+}
+
+function gamePageLoad(){
+  if(p1Ships.length === 0 || p2Ships.length === 0){
+    getWinner()
+    renderWinner(winner)
+  }else{
+    prompt.innerText = 'the eyes of Texas are upon you'
+    clearShipBoard()
+    hideShipBank()
+  }
 }
 
 function handleShipClick(evt) {
@@ -466,6 +481,15 @@ function removeShip(){
   if(shipSelected === 'car'){car.forEach(car => car.setAttribute('hidden', true))}
 }
 
+function resetShip(){
+    pt.forEach(pt => pt.removeAttribute('hidden'))
+    sub.forEach(sub => sub.removeAttribute('hidden'))
+    cru.forEach(cru => cru.removeAttribute('hidden'))
+    bat.forEach(bat => bat.removeAttribute('hidden'))
+    car.forEach(car => car.removeAttribute('hidden'))
+}
+
+
 function renderShip(){
   joinedSpaces.forEach((pos) => {
     // console.log(pos[0])
@@ -483,14 +507,7 @@ function posExtract(evt){
 }
 
 //win condition
-function gamePageLoad(p1Ships, p2Ships){
-  if(p1Ships.length === 0 || p2Ships.length === 0){
-    getWinner()
-    renderWinner(winner)
-  }else{
 
-  }
-}
 
 // function handleShotClick(evt){
 //   let target = evt.target.id
@@ -563,7 +580,9 @@ function exposeShipPlacement(){
   prompt.removeAttribute('hidden')
   reset.removeAttribute('hidden')
   back.removeAttribute('hidden')
-  if(turn === 0){ready1.removeAttribute('hidden')}else{ready2.removeAttribute('hidden')}
+  if(turn === 0){ready1.removeAttribute('hidden')}else{
+    ready1.setAttribute('hidden',true)
+    ready2.removeAttribute('hidden')}
   exposeShipBank()
 }
 
@@ -644,7 +663,9 @@ function highlightShip(evt){
   if(targetId.includes('car')){car.forEach(car => car.classList.add('highlight'))}
   }
 
-  
+  function clearShipBoard(){
+    shipSquares.forEach(coord => coord.style.backgroundColor = '')
+  }
 
 //Constants
   // turn, player 1, player 2, shipinventory array of arrays, board array of arrays
