@@ -1,6 +1,8 @@
 //*------------------------------- Constants -------------------------------*//
 const p1Ships = []
+const p1Active = []
 const p2Ships = []
+const p2Active = []
 const p1Hits = []
 const p1Miss = []
 const p2Hits = []
@@ -34,9 +36,12 @@ const play = document.querySelector('#play')
 const ready1 = document.querySelector('#ready1')
 const ready2 = document.querySelector('#ready2')
 const reset = document.querySelector('#reset')
+const endTurn = document.querySelector('#end-turn')
 const rghtButtons = document.querySelector('#right-buttons')
 const horizontal = document.querySelector('#horizontal')
 const vertical = document.querySelector('#vertical')
+
+//ship selection divs
 const shipBoard = document.querySelector('.ship-board')
 const shotBoard = document.querySelector('.shot-board')
 const shipBank = document.querySelector('#ship-bank')
@@ -290,6 +295,7 @@ ready1.addEventListener('click', () => {
   if(joinedSpaces.length === 17){
     turn = 1
     joinedSpaces.forEach(coord => p1Ships.push(coord))
+    joinedSpaces.forEach(coord => p1Active.push(coord))
     joinedSpaces = []
     removeHighlight()
     shipPlacementLoad()
@@ -298,6 +304,7 @@ ready2.addEventListener('click',() => {
   if(joinedSpaces.length === 17){
     turn = 2
     joinedSpaces.forEach(coord => p2Ships.push(coord))
+    joinedSpaces.forEach(coord => p2Active.push(coord))
     joinedSpaces = []
     gamePageLoad()
   }else{prompt.innerText = 'You must finish placing your ships'}})
@@ -323,10 +330,9 @@ car.forEach(car => {
 shipSquares.forEach(shipSquare => {
   shipSquare.addEventListener('click', handleShipClick)
 })
-shotSquares.forEach(shotSquare => {
-  shotSquare.addEventListener('click', handleShotClick)
-})
 
+
+//Game Play Buttons
 
 
 
@@ -349,11 +355,18 @@ function shipPlacementLoad(){
 
 function gamePageLoad(){
   prompt.innerText = 'the eyes of Texas are upon you'
+  shotSquares.forEach(shotSquare => {
+    shotSquare.addEventListener('click', handleShotClick)
+  })
   clearShipBoard()
   hideShipBank()
+  exposeShipBoard()
   exposeShotBoard()
   ready2.setAttribute('hidden', true)
   back.setAttribute('hidden', true)
+  reset.setAttribute('hidden', true)
+  endTurn.setAttribute('hidden', true)
+  endTurn.innerText = 'End Turn'
   if(turn % 2 === 0){
     player.innerText = 'Player 1'
   }else{
@@ -365,14 +378,14 @@ function gamePageLoad(){
 
 function renderShipBoard(){
   if(turn % 2 === 0){
-    p1Ships.forEach(coord => {
+    p1Active.forEach(coord => {
       let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
     square.style.backgroundColor = 'grey'
     })
     //if player 1 -even
       // change div background color to gray for each coord in p1Ships array
   }else{
-    p2Ships.forEach(coord => {
+    p2Active.forEach(coord => {
       let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
     square.style.backgroundColor = 'grey'
     })
@@ -402,22 +415,28 @@ function renderShotBoard(){
   }
 }
 
+
 function renderWinner(){
+  hideShipBoard()
+  hideShotBoard()
+  clearShipBoard()
+  clearShotBoard()
+  // hide
   if(winner = 'p1'){
-
+    prompt.innerText = 'Player 1 wins!'
   }else{
-
+    prompt.innerText = 'Player 2 wins!'
   }
 }
 
 function handleShotClick(evt){
-  //initialize target as evt.target.id
-  let targetId = evt.target.id
   let targetClass = evt.target.classList
   if(targetClass.contains('square')){
     if(evt.target.style.backgroundColor !== ''){
       prompt.innerText = 'You have already fired there'
     }else{
+      endTurn.removeAttribute('hidden')
+      endTurn.addEventListener('click', changeTurnLoad)
       idShipShot(evt)
       if(turn % 2 === 0){
         checkHitMiss()
@@ -427,21 +446,34 @@ function handleShotClick(evt){
     }
   }
   renderShotBoard()
-  if(p1Ships.length === 0 || p2Ships.length === 0){
-    if(p1Ships.length === 0){
+  if(p1Ships.length === 16 || p2Ships.length === 16){
+    if(p1Ships.length === 16){
       winner = 'p2'
       console.log(winner)
-    }else{
+    }
+    if(p2Ships.length === 16){
       winner = 'p1'
       console.log(winner)
     }
     renderWinner(winner)
   }
+  shotSquares.forEach(shotSquare => {
+    shotSquare.removeEventListener('click', handleShotClick)
+  })
   //check if evt is ship or shot with idShipShot- this will handle click ship div click errors- idShipShot will return with 
 }
 
 function changeTurnLoad(){
-  
+  turn ++
+  title.innerText = ''
+  prompt.innerText = `It's the next players turn, click the start turn button when you are ready.`
+  endTurn.removeEventListener('click',changeTurnLoad)
+  endTurn.innerText = 'Start Turn'
+  endTurn.removeAttribute('hidden')
+  endTurn.addEventListener('click', gamePageLoad)
+  hideShipBoard()
+  clearShotBoard()
+  hideShotBoard()
 }
 
 function testGameState(){
@@ -648,10 +680,6 @@ function getWinner(){
   return winner
 }
 
-function renderWinner(){
-
-}
-
 
 //*------------------------------ Helper functions -------------------------*//
 
@@ -760,9 +788,13 @@ function highlightShip(evt){
   if(targetId.includes('car')){car.forEach(car => car.classList.add('highlight'))}
   }
 
-  function clearShipBoard(){
-    shipSquares.forEach(coord => coord.style.backgroundColor = '')
-  }
+function clearShipBoard(){
+  shipSquares.forEach(coord => coord.style.backgroundColor = '')
+}
+
+function clearShotBoard(){
+  shotSquares.forEach(coord => coord.style.backgroundColor = '')
+}
 
 //Constants
   // turn, player 1, player 2, shipinventory array of arrays, board array of arrays
