@@ -24,7 +24,7 @@ I started this game with the intention of diving into a very difficult game for 
 
 
 ### IceBox Items:
--Tutorial MODL PG 1 && 2
+- Tutorial MODL PG 1 && 2
 
 - LeaderBoard State with ranking and scoring
 
