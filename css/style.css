@@ -121,8 +121,8 @@ section#bank-box-h{
   justify-content: center;
   align-items: center;
   background-color: whitesmoke;
-  min-width: 15vw;
-  min-height: 40vh;
+  width: 200px;
+  height: 500px;
   border-radius: 5px;
   border: 5px solid grey;
 }
@@ -138,10 +138,11 @@ section#bank-box-v{
   justify-content: center;
   align-items: center;
   background-color: whitesmoke;
-  min-width: 15vw;
-  min-height: 40vh;
+  width: 200px;
+  height: 500px;
   padding: 10px;
   border-radius: 5px;
+  border: 5px solid grey;
 }
 
 .square {
