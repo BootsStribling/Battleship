@@ -121,8 +121,8 @@ section#bank-box-h{
   justify-content: center;
   align-items: center;
   background-color: whitesmoke;
-  width: 200px;
-  height: 500px;
+  width: 22vw;
+  height: 50vw;
   border-radius: 5px;
   border: 5px solid grey;
 }
@@ -138,8 +138,8 @@ section#bank-box-v{
   justify-content: center;
   align-items: center;
   background-color: whitesmoke;
-  width: 200px;
-  height: 500px;
+  width: 22vw;
+  height: 50vw;
   padding: 10px;
   border-radius: 5px;
   border: 5px solid grey;
