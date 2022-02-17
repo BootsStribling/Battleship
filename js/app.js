@@ -1,8 +1,10 @@
 //*------------------------------- Constants -------------------------------*//
 const p1Ships = []
 const p2Ships = []
-const p1Shots = []
-const p2Shots = []
+const p1Hits = []
+const p1Miss = []
+const p2Hits = []
+const p2Miss = []
 
 
 //1-PT Boat, 2-Submarine, 3-Cruiser, 4-Battleship, 5-Carrier
@@ -367,11 +369,19 @@ function gamePageLoad(){
 }
 
 function renderShipBoard(){
-  //check if turn is odd or even
+  if(turn % 2 === 0){
+    p1Ships.forEach(coord => {
+      let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
+    square.style.backgroundColor = 'grey'
+    })
     //if player 1 -even
       // change div background color to gray for each coord in p1Ships array
-    //if player 2 - odd
-      // change div background color to gray for each coord in p2Ships array
+  }else{
+    p2Ships.forEach(coord => {
+      let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
+    square.style.backgroundColor = 'grey'
+    })
+  }
 }
 
 function renderShotBoard(){
@@ -390,16 +400,20 @@ function handleShotClick(evt){
   //initialize target as evt.target.id
   let targetId = evt.target.id
   let targetClass = evt.target.classList
-  console.log(evt.target.style)
   if(targetClass.contains('square')){
     if(evt.target.style.backgroundColor !== ''){
       prompt.innerText = 'You have already fired there'
     }else{
       idShipShot(evt)
+      if(turn % 2 === 0){
+        checkHitMiss()
+      }else{
+        checkHitMiss()
+      }
     }
   }
+  gamePageLoad()
   //check if evt is ship or shot with idShipShot- this will handle click ship div click errors- idShipShot will return with 
-
 }
 
 function testGameState(){
@@ -447,6 +461,52 @@ function handleShipClick(evt) {
   
 
 
+function checkHitMiss(){
+  if(turn % 2 === 0){
+    let match = false
+    console.log(p2Ships)
+    p2Ships.forEach((coord,idx) => {
+      if(coord === shotClick){
+        match = true
+        p1Hits.push(shotClick)
+        p2Ships.splice(idx,1)
+        console.log('hit')
+        console.log(p2Ships)
+        return
+      }else{
+      }
+    })
+    if(!match){
+      p1Miss.push(shotClick)
+      console.log('miss')
+    }
+    console.log(p1Hits)
+    console.log(p1Miss)
+    return match
+  }else{
+    let match = false
+    console.log(p1Ships)
+    p1Ships.forEach((coord,idx) => {
+      if(coord === shotClick){
+        match = true
+        p2Hits.push(shotClick)
+        p1Ships.splice(idx,1)
+        console.log('hit')
+        console.log(p1Ships)
+        return
+      }else{
+      }
+    })
+    if(!match){
+      p2Miss.push(shotClick)
+      console.log('miss')
+    }
+    console.log(p2Hits)
+    console.log(p2Miss)
+    return match
+  }
+}
+
 function idShipShot(evt){
   let targetId = evt.target.id 
   console.log(targetId)
@@ -463,11 +523,8 @@ function idShipShot(evt){
     console.log(targetId)
     posExtract(evt)
     // checkHitMiss()
-    console.log(shotClick)
   }
 }
-
-
 
 //imaginary boat that we are comparing as array of arrays
 //pt- [[0,0], [0,1]]
@@ -557,34 +614,7 @@ function posExtract(evt){
   shipClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
   shotClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
   shotClick = shotClick.join('')
- 
-  
 }
-
-//win condition
-
-
-// function handleShotClick(evt){
-//   let target = evt.target.id
-//   if(target.includes('g')){
-//     return
-//   }
-//   if(target.includes('s')){
-//     posExtract(evt) //returns [y,x] values of shot in an array already handling which board was clicked
-//     //if turn is even - it's p1's turn, push that [y,x] shot value to p1Shots array
-//     if(turn % 2 !== 0){
-//       p1Shots.push()
-//     }
-//   }
-// }
-  //ignore clicks on ship board
-  // if()
-  // identify click on shot board
-  // compare id of click on shot board to opponent shipboard
-  // if match to opponent ship board return 'hit'
-  //remove opponent matched item from ship inventory array
-  //renderShot()
-  //move to next game
 
 
 function getWinner(){
@@ -602,7 +632,7 @@ function renderWinner(){
 }
 
 
-//* Helper functions *//
+//*------------------------------ Helper functions -------------------------*//
 
 
 //PageState Hide/Remove
