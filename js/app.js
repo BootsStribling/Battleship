@@ -291,10 +291,11 @@ horizontal.addEventListener('click', hToggle)
 ready1.addEventListener('click', () => {
   if(p1Ships.length === 5){
     turn = 1 
+    
     shipPlacementLoad
   }else{prompt.innerText = 'You must finish placing your ships'}})
 ready2.addEventListener('click',() => {
-  if(p1Ships.length === 5){
+  if(p2Ships.length === 5){
     turn = 2 
     gamePageLoad
   }else{prompt.innerText = 'You must finish placing your ships'}})
@@ -398,105 +399,75 @@ function idShipShot(evt){
   }
   }
 }
+//imaginary boat that we are comparing as array of arrays
+//pt- [[0,0], [0,1]]
 let tempShip = []
+//pt - [00, 01]
+//imaginary boat that we are comparing as '00' 
+//second- click [00,01]
 let joinedTemp = []
+// previously joined temp that were valid and pushed into joined spaces - '00'
 let joinedSpaces = []
 
-function getMatch(){
-  // joinedSpaces.push(shipClick.join(''))
-  // shipSpaces.forEach(ele => {
-  //   joinedSpaces.push(ele.join(''))
-  // })
-  // tempShip.forEach(ele => {
-  //   joinedTemp.push(ele.join(''))
-  // })
-  
-  
-  console.log(joinedSpaces)
-  console.log(joinedTemp)
-  if(joinedSpaces.includes(joinedTemp)){
-    console.log(joinedTemp)
-    joinedTemp = []
-    console.log(joinedTemp)
-    return true
+function pushJoinedTemp(shipClick){
+  let tempShip = []
+  joinedTemp = []
+  let yOnBoard = (shipClick[0] + shipSpaceNum) <= 10
+  let xOnBoard = (shipClick[1] + shipSpaceNum) <= 10
+  if((or === 'vertical' && !yOnBoard) || (or === 'horizontal' && !xOnBoard)){
+    prompt.innerText = 'That ship is off the board, please place it elsewhere'
+      console.log('ship is off the board -y')
+      shipSpaces.pop()
+      return
   }
+  if(or === 'vertical'){
+    for(let i = 0; i < shipSpaceNum; i++){
+      tempShip.push([(shipClick[0] + i), shipClick[1]])
+    }
+  }
+  if(or === 'horizontal'){
+    for(let i = 0; i < shipSpaceNum; i++){
+      tempShip.push([shipClick[0], (shipClick[1] + i)])
+    }
+  }
+  tempShip.forEach(ele => {joinedTemp.push(ele.join(''))})
+}
+
+function getMatch(){
+  let match = false
+  joinedTemp.forEach(coord => {
+    if(joinedSpaces.includes(coord)){
+      match = true
+    }
+  })
+  return match
 } 
 
 function idValidClick(shipClick){
-  let yOnBoard = (shipClick[0] + shipSpaceNum) <= 10
-  let xOnBoard = (shipClick[1] + shipSpaceNum) <= 10
+  pushJoinedTemp(shipClick)
   // shipSpaces.push(shipClick)
+  console.log('sanity check')
   if(getMatch()){
     prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
-    shipSpaces.pop()
     console.log('That ship is overlapping')
   }else{
-    if(or === 'vertical'){
-      if(yOnBoard){
-      for(let i = 0; i < shipSpaceNum; i++){
-        shipSpaces.push([(shipClick[0] + i), shipClick[1]])
-        shipSpaces.forEach(ele => {
-          joinedSpaces.push(ele.join(''))
-        })
-        tempShip.push([(shipClick[0] + i), shipClick[1]])
-        // tempShip.forEach(ele => {
-        //   joinedTemp.push(ele.join(''))
-        // })
-      }
-      console.log('ship is on the board - y')
-      renderShip()
-      }else{
-        prompt.innerText = 'That ship is off the board, please place it elsewhere'
-        console.log('ship is off the board -y')
-        shipSpaces.pop()
-      }
-    }
-    if(or === 'horizontal'){
-      if(xOnBoard){
-      for(let i = 0; i < shipSpaceNum; i++){
-        shipSpaces.push([shipClick[0], (shipClick[1] + i)])
-        shipSpaces.forEach(ele => {
-          joinedSpaces.push(ele.join(''))
-        })
-        tempShip.push([(shipClick[0] + i), shipClick[1]])
-        // tempShip.forEach(ele => {
-        //   joinedTemp.push(ele.join(''))
-        // })
-      }
-      console.log('ship is on the board - x')
-      renderShip()
-      }else{
-        prompt.innerText = 'That ship will is off the board, please place it elsewhere'
-        console.log('ship is off the board -x')
-        shipSpaces.pop()
-      }
-    }
+    joinedTemp.forEach(coord => joinedSpaces.push(coord))
+    removeShip()
   }
-  console.log('1st click ended', tempShip)
-  console.log(joinedTemp)
+  renderShip()
 }
-  //   console.log(shipSpaces)
-  // }
-  // }else if(){
-  //       prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
-  //       shipSpaces.pop()
-  //   }
-  // console.log(p1Ships)
-  // renderShip()
 
-
-    //pt
-      //function to simulate runnout of ship [y,x] values based on shipSpaceNumbers and shipSelected
-      //check if any off the numbers runnout match values in the p1/2shipsarray
-      //check to make sure any of the runnout numbers are less than 9- anymore is off the board
-    //sub
-    //cru
-    //bat
-    //car
-
+function removeShip(){
+  console.log(shipSelected)
+  if(shipSelected === 'pt'){pt.forEach(pt => pt.setAttribute('hidden', true))}
+  if(shipSelected === 'sub'){sub.forEach(sub => sub.setAttribute('hidden', true))}
+  if(shipSelected === 'cru'){cru.forEach(cru => cru.setAttribute('hidden', true))}
+  if(shipSelected === 'bat'){bat.forEach(bat => bat.setAttribute('hidden', true))}
+  if(shipSelected === 'car'){car.forEach(car => car.setAttribute('hidden', true))}
+}
 
 function renderShip(){
-  shipSpaces.forEach((pos) => {
+  joinedSpaces.forEach((pos) => {
     // console.log(pos[0])
     let square = document.querySelector(`#g${pos[0]}-${pos[1]}`)
     // console.log(square)
@@ -504,17 +475,20 @@ function renderShip(){
   })
 }
 
+
 function posExtract(evt){
   let targetId = evt.target.id
   shipClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
   shotClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
 }
+
+//win condition
 function gamePageLoad(p1Ships, p2Ships){
-  if(p1Ships.length || p2Ships.length === 0){
+  if(p1Ships.length === 0 || p2Ships.length === 0){
     getWinner()
     renderWinner(winner)
   }else{
-    renderP1Game()
+
   }
 }
 
