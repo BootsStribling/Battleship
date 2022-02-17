@@ -1,7 +1,7 @@
 # Battleship
 
 Insert Gameplay Image Here
-[Gameplay Photo](assets/favicon.png)
+![Gameplay Photo](assets/favicon.png)
 
 About: 
 
