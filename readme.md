@@ -5,7 +5,7 @@ Insert Gameplay Image Here
 
 About: 
 
-Click here to Play the game:  https://bootsstribling.github.io/Battleship/
+[Play the Game](https://bootsstribling.github.io/Battleship/)
 
 ##Technologies Used:
 - HTML5
@@ -13,14 +13,15 @@ Click here to Play the game:  https://bootsstribling.github.io/Battleship/
 - JavaScript
 - Bootstrap CSS Framework  
 
+###Credits
+1. [Battleship Favicon](https://www.vectorstock.com/royalty-free-vector/battleship-team-logo-vector-38208431)
 
-
-Original WireFrame: 
+###Original WireFrame: 
 
 [OG Wireframe](assets/OG-Wireframe))
 
 
-IceBox Items:
+###IceBox Items:
 -Tutorial MODL PG 1 && 2
 
 - LeaderBoard State with ranking and scoring
