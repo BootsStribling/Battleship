@@ -287,8 +287,8 @@ const s99 = document.querySelector('#s9-9')
 play.addEventListener('click', shipPlacementLoad)
 
 //Ship Placement Buttons
-back.addEventListener('click', testGameState)
-reset.addEventListener('click', exposeShipBoard)
+// back.addEventListener('click', testGameState)
+reset.addEventListener('click', resetBtn)
 vertical.addEventListener('click', vToggle)
 horizontal.addEventListener('click', hToggle)
 ready1.addEventListener('click', () => {
@@ -338,19 +338,28 @@ shipSquares.forEach(shipSquare => {
 
 //*------------------------------ Functions --------------------------------*//
 //Page loads on unhidden HTML
-//Upon click of Play Button// Loads p1 and ShipPlacementLoad
+//Upon click of Play Button// Loads p1 and ShipPlacementLoad 
+
 function shipPlacementLoad(){
   if(turn === 0){
     player.innerText = 'Player 1'
+
   }
   if(turn === 1){
     player.innerText = 'Player 2'
-    resetShip()
-    clearShipBoard()
   }
+  resetShip()
+  clearShipBoard()
   prompt.innerText = 'Please click a ship and then click a space to place it'
   hidePageLoad()
   exposeShipPlacement()
+}
+
+function resetBtn(){
+  joinedSpaces = []
+  console.log('reached reset')
+  removeHighlight()
+  shipPlacementLoad()
 }
 
 function gamePageLoad(){
@@ -415,6 +424,10 @@ function renderShotBoard(){
   }
 }
 
+function init(){
+  
+}
+
 
 function renderWinner(){
   hideShipBoard()
@@ -446,12 +459,12 @@ function handleShotClick(evt){
     }
   }
   renderShotBoard()
-  if(p1Ships.length === 16 || p2Ships.length === 16){
-    if(p1Ships.length === 16){
+  if(p1Ships.length === 0 || p2Ships.length === 0){
+    if(p1Ships.length === 0){
       winner = 'p2'
       console.log(winner)
     }
-    if(p2Ships.length === 16){
+    if(p2Ships.length === 0){
       winner = 'p1'
       console.log(winner)
     }
@@ -476,9 +489,9 @@ function changeTurnLoad(){
   hideShotBoard()
 }
 
-function testGameState(){
-  joinedSpaces = ['24', '25', '53', '54', '55', '74', '75', '76', '77', '12', '13', '14', '15', '16', '44', '45', '46']
-}
+// function testGameState(){
+//   joinedSpaces = ['24', '25', '53', '54', '55', '74', '75', '76', '77', '12', '13', '14', '15', '16', '44', '45', '46']
+// }
 
 function handleShipClick(evt) {
   let targetId = evt.target.id
