@@ -3,8 +3,6 @@ const p1Ships = []
 const p2Ships = []
 const p1Shots = []
 const p2Shots = []
-let p1ShipInv = [2, 3, 3, 4, 5]
-let p2ShipInv = [2, 3, 3, 4, 5]
 
 
 //1-PT Boat, 2-Submarine, 3-Cruiser, 4-Battleship, 5-Carrier
@@ -12,12 +10,11 @@ let p2ShipInv = [2, 3, 3, 4, 5]
 //*------------------------------- Variables -------------------------------*//
 //turns
 // 0-P1 Ship Placement, 1-P2 Ship Placement, 2-P1 Gameplay, 3-P2 GamePlay 
-let turn = -1
+let turn = 0
 let shipClick, shotClick
 let shipSelected = null
 //orientation
 let or = 'horizontal'
-let shipSpaces = []
 
 //*---------------------- Cached Element References ------------------------*//
 
@@ -163,7 +160,6 @@ const g98 = document.querySelector('#g9-8')
 const g99 = document.querySelector('#g9-9')
 
 //Shot-board divs
-//Ship Board Divs
 const shotSquares = document.querySelectorAll('.shot-board > div')
 const s00 = document.querySelector('#s0-0')
 const s01 = document.querySelector('#s0-1')
@@ -284,14 +280,16 @@ const s99 = document.querySelector('#s9-9')
 play.addEventListener('click', shipPlacementLoad)
 
 //Ship Placement Buttons
-back.addEventListener('click', pageLoad)
+back.addEventListener('click', testGameState)
 reset.addEventListener('click', exposeShipBoard)
 vertical.addEventListener('click', vToggle)
 horizontal.addEventListener('click', hToggle)
 ready1.addEventListener('click', () => {
   if(joinedSpaces.length === 17){
+    turn = 1
     joinedSpaces.forEach(coord => p1Ships.push(coord))
     joinedSpaces = []
+    removeHighlight()
     shipPlacementLoad()
   }else{prompt.innerText = 'You must finish placing your ships'}})
 ready2.addEventListener('click',() => {
@@ -323,6 +321,9 @@ car.forEach(car => {
 shipSquares.forEach(shipSquare => {
   shipSquare.addEventListener('click', handleShipClick)
 })
+shotSquares.forEach(shotSquare => {
+  shotSquare.addEventListener('click', handleShotClick)
+})
 
 
 
@@ -331,7 +332,6 @@ shipSquares.forEach(shipSquare => {
 //Page loads on unhidden HTML
 //Upon click of Play Button// Loads p1 and ShipPlacementLoad
 function shipPlacementLoad(){
-  turn++
   if(turn === 0){
     player.innerText = 'Player 1'
   }
@@ -353,7 +353,57 @@ function gamePageLoad(){
     prompt.innerText = 'the eyes of Texas are upon you'
     clearShipBoard()
     hideShipBank()
+    exposeShotBoard()
+    ready2.setAttribute('hidden', true)
+    back.setAttribute('hidden', true)
+    if(turn % 2 === 0){
+      player.innerText = 'Player 1'
+    }else{
+      player.innerText = 'Player 2'
+    }
+    renderShipBoard()
+    renderShotBoard()
   }
+}
+
+function renderShipBoard(){
+  //check if turn is odd or even
+    //if player 1 -even
+      // change div background color to gray for each coord in p1Ships array
+    //if player 2 - odd
+      // change div background color to gray for each coord in p2Ships array
+}
+
+function renderShotBoard(){
+  //check if turn is odd or even
+    //if player 1 - even
+      // loop through each shot in p1Shots array and check if coord is hit or miss from h or m annotation joined with coord 
+        // if m annotation - miss - render background color white
+        // if h annotation - hit - render background color red
+    //if player 2 - odd
+      // loop through each shot in p2Shots array and check if coord is hit or miss from h or m annotation joined with coord 
+        // if m annotation - miss - render background color white
+        // if h annotation - hit - render background color red
+}
+
+function handleShotClick(evt){
+  //initialize target as evt.target.id
+  let targetId = evt.target.id
+  let targetClass = evt.target.classList
+  console.log(evt.target.style)
+  if(targetClass.contains('square')){
+    if(evt.target.style.backgroundColor !== ''){
+      prompt.innerText = 'You have already fired there'
+    }else{
+      idShipShot(evt)
+    }
+  }
+  //check if evt is ship or shot with idShipShot- this will handle click ship div click errors- idShipShot will return with 
+
+}
+
+function testGameState(){
+  joinedSpaces = ['24', '25', '53', '54', '55', '74', '75', '76', '77', '12', '13', '14', '15', '16', '44', '45', '46']
 }
 
 function handleShipClick(evt) {
@@ -364,8 +414,6 @@ function handleShipClick(evt) {
         prompt.innerText = 'You must first select a ship'
       }else{
         idShipShot(evt)
-        p1Ships.push(shipSpaces)
-        // renderShip()
       }
     }else{
       highlightShip(evt)
@@ -401,6 +449,7 @@ function handleShipClick(evt) {
 
 function idShipShot(evt){
   let targetId = evt.target.id 
+  console.log(targetId)
   if(targetId.includes('g')){
     if(turn === 0 || turn === 1){
       posExtract(evt)
@@ -409,14 +458,19 @@ function idShipShot(evt){
     }else{
       prompt.innerText = 'You cannot change the position of your ships when you have gone to battle.'
     }
-  if(targetId.includes('s')){
-    posExtract(evt)
   }
+  if(targetId.includes('s')){
+    console.log(targetId)
+    posExtract(evt)
+    // checkHitMiss()
+    console.log(shotClick)
   }
 }
+
+
+
 //imaginary boat that we are comparing as array of arrays
 //pt- [[0,0], [0,1]]
-let tempShip = []
 //pt - [00, 01]
 //imaginary boat that we are comparing as '00' 
 //second- click [00,01]
@@ -432,7 +486,6 @@ function pushJoinedTemp(shipClick){
   if((or === 'vertical' && !yOnBoard) || (or === 'horizontal' && !xOnBoard)){
     prompt.innerText = 'That ship is off the board, please place it elsewhere'
       console.log('ship is off the board -y')
-      shipSpaces.pop()
       return
   }
   if(or === 'vertical'){
@@ -460,7 +513,6 @@ function getMatch(){
 
 function idValidClick(shipClick){
   pushJoinedTemp(shipClick)
-  // shipSpaces.push(shipClick)
   console.log('sanity check')
   if(getMatch()){
     prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
@@ -504,6 +556,9 @@ function posExtract(evt){
   let targetId = evt.target.id
   shipClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
   shotClick = [parseInt(targetId.substring(1,2)), parseInt(targetId.substring(3,4))]
+  shotClick = shotClick.join('')
+ 
+  
 }
 
 //win condition
@@ -531,15 +586,6 @@ function posExtract(evt){
   //renderShot()
   //move to next game
 
-
-function renderP1Game(){
-  
-
-}
-
-function renderP2Game(){
-
-}
 
 function getWinner(){
   if(p1Ships.length === 0){
