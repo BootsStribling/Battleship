@@ -20,7 +20,7 @@ I started this game with the intention of diving into a very difficult game for 
 
 ### Original WireFrame: 
 
-[OG Wireframe](assets/OG-Wireframe))
+[OG Wireframe](assets/OG-Wireframe)
 
 
 ### IceBox Items:
