@@ -1,11 +1,13 @@
 # Battleship
 
-Insert Gameplay Image Here
+__Insert Gameplay Image Here__
 ![Gameplay Photo](assets/favicon.png)
 
-About: 
 
 [Play the Game](https://bootsstribling.github.io/Battleship/)
+
+##About the creation: 
+I started this game with the intention of diving into a very difficult game for my beginner level and working hard to learn what was needed to produce something fun with a few twists. Having one week to complete this project, I definitely found my struggle and stride throughout its creation. Execution is the most difficult part of any project and I found myself ice-boxing items I never would have expected to ice-box. I hope you enjoy the game as is. I'm continuing to adjust, fix bugs, and add features. Enjoy Battleship from Boots Stribling!
 
 ##Technologies Used:
 - HTML5
