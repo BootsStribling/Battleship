@@ -34,6 +34,11 @@ I started this game with the intention of diving into a very difficult game for 
 
 
 ### IceBox Items:
+
+- [ ] Refactor code to reduce HTML writing
+  
+- [ ] Add AI and Single Player mode with Easy Medium Hard Computer Decisions
+
 - [ ] Tutorial MODL PG 1 && 2
   
 - [ ] Add shapes/texture to the ships in the ship-bank and the ship board
