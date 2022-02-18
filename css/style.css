@@ -22,8 +22,7 @@ body {
   background: url(/assets/water-background.png);
   background-size: cover;
 /* Use a system font, if none are available use an available sans-sarif   font */
-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+font-family: 'Black Ops One', cursive;
 color: whitesmoke;
 margin: 0;
 height: 100vh;

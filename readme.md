@@ -1,7 +1,7 @@
 # Battleship
-![LoadPage](/assets/load-state.png)
-![ShipPlacement](/assets/Ship-Placement.png)
-![Combat](/assets/Gameplay.png)
+![LoadPage](/assets/load-screen.png)
+![ShipPlacement](/assets/ship-placement.png)
+![Combat](/assets/game-play.png)
 
 [Play the Game](https://bootsstribling.github.io/Battleship/)
 
@@ -22,6 +22,7 @@ I started this game with the intention of diving into a very difficult game for 
 5. [Battleship Favicon](https://www.vectorstock.com/royalty-free-vector/battleship-team-logo-vector-38208431)
 6. [Water Background](https://unsplash.com/photos/qEswHvOmi1c)
 7. [Battleship Photo](https://www.wowsbuilds.com/ships/alaska)
+8. [BlackOpsOneFont](https://fonts.google.com/specimen/Black+Ops+One#standard-styles)
 
 ### Original WireFrame: 
 
