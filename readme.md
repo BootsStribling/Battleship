@@ -1,8 +1,5 @@
 # Battleship
-
-__Insert Gameplay Image Here__
-![Gameplay Photo](assets/favicon.png)
-
+![Gameplay Photo](/assets/load-state.png)
 
 [Play the Game](https://bootsstribling.github.io/Battleship/)
 
@@ -16,7 +13,13 @@ I started this game with the intention of diving into a very difficult game for 
 - Bootstrap CSS Framework  
 
 ### Credits
-1. [Battleship Favicon](https://www.vectorstock.com/royalty-free-vector/battleship-team-logo-vector-38208431)
+1. [Joe Malatesta](https://github.com/JoeMalatesta)
+2. [David Stinson](https://github.com/DavidStinson)
+3. [Emily Lascano](https://github.com/e-lascano2021)
+4. [Hunter Long](https://github.com/whlong1)
+5. [Battleship Favicon](https://www.vectorstock.com/royalty-free-vector/battleship-team-logo-vector-38208431)
+6. [Water Background](https://unsplash.com/photos/qEswHvOmi1c)
+7. [Battleship Photo](https://www.wowsbuilds.com/ships/alaska)
 
 ### Original WireFrame: 
 
@@ -25,6 +28,8 @@ I started this game with the intention of diving into a very difficult game for 
 
 ### IceBox Items:
 - [ ] Tutorial MODL PG 1 && 2
+  
+- [ ] Render P1 shots on P2ship board and vice versa 
 
 - [ ]  LeaderBoard State with ranking and scoring
 
