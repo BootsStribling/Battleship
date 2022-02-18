@@ -19,7 +19,8 @@ html {
 }
 
 body {
-  background-color: deepskyblue;
+  background: url(/assets/water-background.png);
+  background-size: cover;
 /* Use a system font, if none are available use an available sans-sarif   font */
 font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
@@ -30,16 +31,17 @@ display: grid;
 grid-template-columns: 25% 50% 25%;
 grid-template-rows: 10% 5% 5% 5% 50% 25%;
 grid-template-areas: 
+'. . .'
 '. h1 .'
 '. h2 .'
 '. h3 .'
-'. . .'
 '. play-area ship-bank'
 'leftbuttons midbuttons rgtbuttons'
 ;
 justify-content: center;
 align-items: center;
 text-align: center;
+text-shadow: 3px 3px 1px black;
 }
 
 [hidden]{
@@ -51,7 +53,13 @@ section.play-area{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent ;
+  flex-direction: row;
+  background-color: transparent;
+  background-size: cover;
+  min-width: 50vw;
+  max-width: 50vw;
+  max-height: 50vh ;
+  min-height: 50vh;
 }
 
 section.board{
@@ -59,7 +67,7 @@ section.board{
   display: grid;
   grid-template-rows: repeat(10, 4vmin);
   grid-template-columns: repeat(10, 4vmin);
-  border: 2px solid black;
+  border: 2px solid whitesmoke;
 }
 
 section.ship-board{
@@ -80,18 +88,45 @@ section.ship-bank{
   text-align: center;
 }
 
+
 h1{
   grid-area: h1;
+  font-size: 5.4vw;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 50px 10px 50px;
 }
+
+img{
+  min-width: 60vw;
+  max-width: 60vw;
+  min-height: 60vh;
+  max-height: 60vh;
+}
+
 h2{
   grid-area: h2;
+  font-size: 3.5vw;
+  margin: 50px;
 }
 h3{
+  display: flex;
   grid-area: h3;
+  font-size: 1.5vw;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 10vh;
 }
 
 .button{
   margin: 2vw;
+  min-height: 2vw;
+  min-width: 4vw;
+  font-size: .8vw;
+  border: whitesmoke solid 1px;
+  box-shadow: rgba(0, 0, 0, .5) 3px 2px;
 }
 
 section#left-buttons{
@@ -122,9 +157,11 @@ section#bank-box-h{
   align-items: center;
   background-color: whitesmoke;
   width: 22vw;
-  height: 50vw;
+  height: 55vw;
+  max-width: 250px;
+  max-height: 500px;
   border-radius: 5px;
-  border: 5px solid grey;
+  box-shadow: rgba(0, 0, 0, .5) 5px 5px;
 }
 
 section#bank-box-v{
@@ -139,24 +176,40 @@ section#bank-box-v{
   align-items: center;
   background-color: whitesmoke;
   width: 22vw;
-  height: 50vw;
+  height: 55vw;
+  max-width: 250px;
+  max-height: 500px;
   padding: 10px;
   border-radius: 5px;
-  border: 5px solid grey;
+  box-shadow: rgba(0, 0, 0, .5) 5px 5px;
 }
 
 .square {
-  border: 1px solid black;
+  border: 1px solid whitesmoke;
   text-align: center;
   vertical-align: middle;
   color: ivory;
 }
 
 #pt-h, #sub-h, #cru-h, #bat-h, #car-h{
-  background-color: darkgray;
+  background-color: darkgrey;
+  background-size: 100%;
   height: 3vmin;
   margin: 2vmin 4px 2vmin 4px;
 }
+#pt-v, #sub-v, #cru-v, #bat-v, #car-v{
+  background-color: darkgrey;
+  background-size: 900%;
+  width: 3vmin;
+  margin: 1vmin;
+}
+
+#ptv, #subv, #cruv, #batv, #carv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #pt-h{
   width: 8vmin;
   border-radius: 25%;
@@ -182,11 +235,6 @@ section#bank-box-v{
   border-radius: 20%;
 }
 
-#ptv, #subv, #cruv, #batv, #carv{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 #ptv{
   grid-area: pt;
@@ -204,12 +252,6 @@ section#bank-box-v{
   grid-area: car;
 }
 
-#pt-v, #sub-v, #cru-v, #bat-v, #car-v{
-  font-size: 1.5vmin;
-  background-color: darkgray;
-  width: 3vmin;
-  margin: 1vmin;
-}
 #pt-v{
   height: 8vmin;
   border-radius: 25%;
@@ -236,5 +278,6 @@ section#bank-box-v{
 }
 
 .highlight{
-  border: 4px solid red;
+  box-shadow:  5px 5px rgba(0, 0, 0, .5);
+  border: whitesmoke 1px solid;
 }

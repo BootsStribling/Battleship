@@ -12,11 +12,11 @@
   <title>Battleship</title>
 </head>
 <body>
+  <h2 id="player" hidden></h2>
+  <h3 id="prompt" hidden></h3>
   <h1 id="title">Battleship</h1>
-    <h2 id="player" hidden></h2>
-    <h3 id="prompt" hidden></h3>
-    <section class="play-area">
-      <img id="page-load-image" src="https://picsum.photos/800/500" alt="Placeholder image">
+  <section class="play-area">
+      <img id="page-load-image" src="/assets/plImage.png" alt="Placeholder image">
       <section class="board ship-board" hidden>
         <!-- squares id by xvalue-yvalue starting with 0 to correspond to index value -->
         <div class ="square" id="g0-0" ></div>
@@ -252,8 +252,8 @@
       <p id="hit-miss-msg"></p>
     </section>
     <section id="right-buttons" hidden>
-      <button id="vertical" class="btn btn-primary">Vertical</button>
-      <button id="horizontal" class="btn btn-primary"hidden>Horizontal</button>
+      <button id="vertical" class="button btn btn-primary">Vertical</button>
+      <button id="horizontal" class="button btn btn-primary"hidden>Horizontal</button>
     </section>
   </body>
 </html>

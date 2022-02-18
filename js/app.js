@@ -7,6 +7,8 @@ const p1Hits = []
 const p1Miss = []
 const p2Hits = []
 const p2Miss = []
+let joinedTemp = []
+let joinedSpaces = []
 
 
 //1-PT Boat, 2-Submarine, 3-Cruiser, 4-Battleship, 5-Carrier
@@ -27,19 +29,23 @@ const title = document.querySelector('#title')
 const player = document.querySelector('#player')
 const prompt = document.querySelector('#prompt')
 
-
-//img
-const img = document.querySelector('#page-load-image')
-
 //Ship Placement Buttons
 const play = document.querySelector('#play')
 const ready1 = document.querySelector('#ready1')
 const ready2 = document.querySelector('#ready2')
 const reset = document.querySelector('#reset')
-const endTurn = document.querySelector('#end-turn')
+const back = document.querySelector('#back')
 const rghtButtons = document.querySelector('#right-buttons')
 const horizontal = document.querySelector('#horizontal')
 const vertical = document.querySelector('#vertical')
+
+const img = document.querySelector('img')
+
+//Gameplay buttons
+const endTurn = document.querySelector('#end-turn')
+
+//GamePlay Areas
+const playArea = document.querySelector('.play-area')
 
 //ship selection divs
 const shipBoard = document.querySelector('.ship-board')
@@ -287,7 +293,7 @@ const s99 = document.querySelector('#s9-9')
 play.addEventListener('click', shipPlacementLoad)
 
 //Ship Placement Buttons
-// back.addEventListener('click', testGameState)
+back.addEventListener('click', backBtn)
 reset.addEventListener('click', resetBtn)
 vertical.addEventListener('click', vToggle)
 horizontal.addEventListener('click', hToggle)
@@ -299,7 +305,13 @@ ready1.addEventListener('click', () => {
     joinedSpaces = []
     removeHighlight()
     shipPlacementLoad()
-  }else{prompt.innerText = 'You must finish placing your ships'}})
+  }else{
+    prompt.innerText = 'You must finish placing your ships'
+    prompt.style.color = 'palevioletred'
+    setTimeout(() => {
+      prompt.innerText = 'Please click a ship and then click a space to place it'
+      prompt.style.color = 'whitesmoke'}, 2000)
+  }})
 ready2.addEventListener('click',() => {
   if(joinedSpaces.length === 17){
     turn = 2
@@ -307,7 +319,13 @@ ready2.addEventListener('click',() => {
     joinedSpaces.forEach(coord => p2Active.push(coord))
     joinedSpaces = []
     gamePageLoad()
-  }else{prompt.innerText = 'You must finish placing your ships'}})
+  }else{
+    prompt.innerText = 'You must finish placing your ships'
+    prompt.style.color = 'palevioletred'
+    setTimeout(() => {
+      prompt.innerText = 'Please click a ship and then click a space to place it'
+      prompt.style.color = 'whitesmoke'}, 2000)
+  }})
 
 //ship divs
 pt.forEach(pt => {
@@ -338,6 +356,15 @@ shipSquares.forEach(shipSquare => {
 
 //*------------------------------ Functions --------------------------------*//
 //Page loads on unhidden HTML
+//backButton
+function backBtn() {
+  turn = 0
+  hideShipPlacement()
+  title.removeAttribute('hidden')
+  play.removeAttribute('hidden')
+  joinedSpaces = []
+  removeHighlight()
+}
 //Upon click of Play Button// Loads p1 and ShipPlacementLoad 
 
 function shipPlacementLoad(){
@@ -363,7 +390,7 @@ function resetBtn(){
 }
 
 function gamePageLoad(){
-  prompt.innerText = 'the eyes of Texas are upon you'
+  prompt.innerText = 'Click the shot board to fire upon your opponent!'
   shotSquares.forEach(shotSquare => {
     shotSquare.addEventListener('click', handleShotClick)
   })
@@ -424,10 +451,6 @@ function renderShotBoard(){
   }
 }
 
-function init(){
-  
-}
-
 
 function renderWinner(){
   hideShipBoard()
@@ -447,6 +470,10 @@ function handleShotClick(evt){
   if(targetClass.contains('square')){
     if(evt.target.style.backgroundColor !== ''){
       prompt.innerText = 'You have already fired there'
+      prompt.style.color = 'palevioletred'
+      setTimeout(() => {
+        prompt.innerText = 'Click the shot board to fire upon your opponent!'
+        prompt.style.color = 'whitesmoke'}, 2000)
     }else{
       endTurn.removeAttribute('hidden')
       endTurn.addEventListener('click', changeTurnLoad)
@@ -473,7 +500,6 @@ function handleShotClick(evt){
   shotSquares.forEach(shotSquare => {
     shotSquare.removeEventListener('click', handleShotClick)
   })
-  //check if evt is ship or shot with idShipShot- this will handle click ship div click errors- idShipShot will return with 
 }
 
 function changeTurnLoad(){
@@ -489,9 +515,7 @@ function changeTurnLoad(){
   hideShotBoard()
 }
 
-// function testGameState(){
-//   joinedSpaces = ['24', '25', '53', '54', '55', '74', '75', '76', '77', '12', '13', '14', '15', '16', '44', '45', '46']
-// }
+
 
 function handleShipClick(evt) {
   let targetId = evt.target.id
@@ -499,6 +523,10 @@ function handleShipClick(evt) {
     if(targetClass.contains('square')){
       if(shipSelected === null){
         prompt.innerText = 'You must first select a ship'
+        prompt.style.color = 'palevioletred'
+        setTimeout(() => {
+        prompt.innerText = 'Please click a ship and then click a space to place it'
+        prompt.style.color = 'whitesmoke'}, 2000)
       }else{
         idShipShot(evt)
       }
@@ -583,6 +611,10 @@ function idShipShot(evt){
       idValidClick(shipClick)
     }else{
       prompt.innerText = 'You cannot change the position of your ships when you have gone to battle.'
+      prompt.style.color = 'palevioletred'
+    setTimeout(() => {
+      prompt.innerText = 'Please click a ship and then click a space to place it'
+      prompt.style.color = 'whitesmoke'}, 2000)
     }
   }
   if(targetId.includes('s')){
@@ -592,15 +624,6 @@ function idShipShot(evt){
   }
 }
 
-//imaginary boat that we are comparing as array of arrays
-//pt- [[0,0], [0,1]]
-//pt - [00, 01]
-//imaginary boat that we are comparing as '00' 
-//second- click [00,01]
-let joinedTemp = []
-// previously joined temp that were valid and pushed into joined spaces - '00'
-let joinedSpaces = []
-
 function pushJoinedTemp(shipClick){
   let tempShip = []
   joinedTemp = []
@@ -608,7 +631,10 @@ function pushJoinedTemp(shipClick){
   let xOnBoard = (shipClick[1] + shipSpaceNum) <= 10
   if((or === 'vertical' && !yOnBoard) || (or === 'horizontal' && !xOnBoard)){
     prompt.innerText = 'That ship is off the board, please place it elsewhere'
-      console.log('ship is off the board -y')
+    prompt.style.color = 'palevioletred'
+      setTimeout(() => {
+        prompt.innerText = 'Please click a ship and then click a space to place it'
+        prompt.style.color = 'whitesmoke'}, 2000)
       return
   }
   if(or === 'vertical'){
@@ -636,10 +662,12 @@ function getMatch(){
 
 function idValidClick(shipClick){
   pushJoinedTemp(shipClick)
-  console.log('sanity check')
   if(getMatch()){
     prompt.innerText = 'That ship is overlapping another ship, please place it elsewhere'
-    console.log('That ship is overlapping')
+    prompt.style.color = 'palevioletred'
+    setTimeout(() => {
+      prompt.innerText = 'Please click a ship and then click a space to place it'
+      prompt.style.color = 'whitesmoke'}, 2000)
   }else{
     joinedTemp.forEach(coord => joinedSpaces.push(coord))
     removeShip()
@@ -670,7 +698,7 @@ function renderShip(){
     // console.log(pos[0])
     let square = document.querySelector(`#g${pos[0]}-${pos[1]}`)
     // console.log(square)
-    square.style.backgroundColor = 'grey'
+    square.style.backgroundColor = 'darkgrey'
   })
 }
 
@@ -697,19 +725,12 @@ function getWinner(){
 //*------------------------------ Helper functions -------------------------*//
 
 
+
 //PageState Hide/Remove
-function pageLoad() {
-  hideShipPlacement()
-  img.removeAttribute('hidden')
-  title.removeAttribute('hidden')
-  play.removeAttribute('hidden')
-}
-
-
 function hidePageLoad(){
-  img.setAttribute('hidden',true)
   title.setAttribute('hidden',true)
   play.setAttribute('hidden', true)
+  img.setAttribute('hidden', true)
 }
 
 function exposeShipPlacement(){
@@ -726,7 +747,7 @@ function exposeShipPlacement(){
 
 function hideShipPlacement(){
   hideShipBoard()
-  ready.setAttribute('hidden', true)
+  ready1.setAttribute('hidden', true)
   reset.setAttribute('hidden', true)
   back.setAttribute('hidden', true)
   player.setAttribute('hidden', true)
