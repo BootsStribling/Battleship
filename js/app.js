@@ -425,8 +425,6 @@ function renderShipBoard(){
       let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
     square.style.backgroundColor = 'darkgrey'
     })
-    //if player 1 -even
-      // change div background color to gray for each coord in p1Ships array
   }else{
     p2Active.forEach(coord => {
       let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
@@ -468,8 +466,10 @@ function renderWinner(){
   // hide
   if(winner = 'p1'){
     prompt.innerText = 'Player 1 wins!'
+    prompt.style.fontSize = '3.5vw'
   }else{
     prompt.innerText = 'Player 2 wins!'
+    prompt.style.fontSize = '3.5vw'
   }
 }
 
@@ -494,11 +494,11 @@ function handleShotClick(evt){
     }
   }
   renderShotBoard()
-  if(p1Ships.length === 0 || p2Ships.length === 0){
-    if(p1Ships.length === 0){
+  if(p1Ships.length === 16 || p2Ships.length === 16){
+    if(p1Ships.length === 16){
       winner = 'p2'
     }
-    if(p2Ships.length === 0){
+    if(p2Ships.length === 16){
       winner = 'p1'
     }
     renderWinner(winner)
