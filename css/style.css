@@ -22,25 +22,25 @@ body {
   background: url(/assets/water-background.png);
   background-size: cover;
 /* Use a system font, if none are available use an available sans-sarif   font */
-font-family: 'Black Ops One', cursive;
-color: whitesmoke;
-margin: 0;
-height: 100vh;
-display: grid;
-grid-template-columns: 25% 50% 25%;
-grid-template-rows: 10% 5% 5% 5% 50% 25%;
-grid-template-areas: 
-'. . .'
-'. h1 .'
-'. h2 .'
-'. h3 .'
-'. play-area ship-bank'
-'leftbuttons midbuttons rgtbuttons'
-;
-justify-content: center;
-align-items: center;
-text-align: center;
-text-shadow: 3px 3px 1px black;
+  font-family: 'Black Ops One', cursive;
+  color: whitesmoke;
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  grid-template-rows: 10% 5% 5% 5% 50% 25%;
+  grid-template-areas: 
+  '. . .'
+  '. h1 .'
+  '. h2 .'
+  '. h3 .'
+  '. play-area ship-bank'
+  'leftbuttons midbuttons rgtbuttons'
+  ;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: 3px 3px 1px black;
 }
 
 [hidden]{
