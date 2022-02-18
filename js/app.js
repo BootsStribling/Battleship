@@ -305,13 +305,20 @@ ready1.addEventListener('click', () => {
     joinedSpaces = []
     removeHighlight()
     shipPlacementLoad()
+  }else if(joinedSpaces.length > 17){
+    prompt.innerText = 'You have too many ships for this voyage. Please reset'
+    prompt.style.color = 'palevioletred'
+    setTimeout(() => {
+      prompt.innerText = 'Please click a ship and then click a space to place it'
+      prompt.style.color = 'whitesmoke'}, 2000)
   }else{
     prompt.innerText = 'You must finish placing your ships'
     prompt.style.color = 'palevioletred'
     setTimeout(() => {
       prompt.innerText = 'Please click a ship and then click a space to place it'
       prompt.style.color = 'whitesmoke'}, 2000)
-  }})
+  }
+})
 ready2.addEventListener('click',() => {
   if(joinedSpaces.length === 17){
     turn = 2
@@ -362,6 +369,7 @@ function backBtn() {
   hideShipPlacement()
   title.removeAttribute('hidden')
   play.removeAttribute('hidden')
+  img.removeAttribute('hidden')
   joinedSpaces = []
   removeHighlight()
 }
@@ -384,6 +392,7 @@ function shipPlacementLoad(){
 
 function resetBtn(){
   joinedSpaces = []
+  shipSelected = null
   console.log('reached reset')
   removeHighlight()
   shipPlacementLoad()
@@ -612,7 +621,7 @@ function idShipShot(evt){
     }else{
       prompt.innerText = 'You cannot change the position of your ships when you have gone to battle.'
       prompt.style.color = 'palevioletred'
-    setTimeout(() => {
+      setTimeout(() => {
       prompt.innerText = 'Please click a ship and then click a space to place it'
       prompt.style.color = 'whitesmoke'}, 2000)
     }
@@ -620,7 +629,6 @@ function idShipShot(evt){
   if(targetId.includes('s')){
     console.log(targetId)
     posExtract(evt)
-    // checkHitMiss()
   }
 }
 
@@ -632,9 +640,10 @@ function pushJoinedTemp(shipClick){
   if((or === 'vertical' && !yOnBoard) || (or === 'horizontal' && !xOnBoard)){
     prompt.innerText = 'That ship is off the board, please place it elsewhere'
     prompt.style.color = 'palevioletred'
-      setTimeout(() => {
-        prompt.innerText = 'Please click a ship and then click a space to place it'
-        prompt.style.color = 'whitesmoke'}, 2000)
+    setTimeout(() => {
+      prompt.innerText = 'Please click a ship and then click a space to place it'
+      prompt.style.color = 'whitesmoke'}, 2000)
+    resetBtn()
       return
   }
   if(or === 'vertical'){
