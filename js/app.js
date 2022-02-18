@@ -423,14 +423,14 @@ function renderShipBoard(){
   if(turn % 2 === 0){
     p1Active.forEach(coord => {
       let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
-    square.style.backgroundColor = 'grey'
+    square.style.backgroundColor = 'darkgrey'
     })
     //if player 1 -even
       // change div background color to gray for each coord in p1Ships array
   }else{
     p2Active.forEach(coord => {
       let square = document.querySelector(`#g${coord.substring(0,1)}-${coord.substring(1,2)}`)
-    square.style.backgroundColor = 'grey'
+    square.style.backgroundColor = 'darkgrey'
     })
   }
 }
@@ -751,7 +751,6 @@ function hideShipPlacement(){
 }
 
 //element hide/remove
-
 function exposeShipBoard(){
   shipBoard.removeAttribute('hidden');
 }
