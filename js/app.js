@@ -392,7 +392,6 @@ function shipPlacementLoad(){
 function resetBtn(){
   joinedSpaces = []
   shipSelected = null
-  console.log('reached reset')
   removeHighlight()
   shipPlacementLoad()
 }
@@ -498,11 +497,9 @@ function handleShotClick(evt){
   if(p1Ships.length === 0 || p2Ships.length === 0){
     if(p1Ships.length === 0){
       winner = 'p2'
-      console.log(winner)
     }
     if(p2Ships.length === 0){
       winner = 'p1'
-      console.log(winner)
     }
     renderWinner(winner)
   }
@@ -572,39 +569,32 @@ function handleShipClick(evt) {
 function checkHitMiss(){
   if(turn % 2 === 0){
     let match = false
-    console.log(p2Ships)
     p2Ships.forEach((coord,idx) => {
       if(coord === shotClick){
         match = true
         p1Hits.push(shotClick)
         p2Ships.splice(idx,1)
-        console.log('hit')
-        
         return
       }else{
       }
     })
     if(!match){
       p1Miss.push(shotClick)
-      console.log('miss')
     }
     return match
   }else{
     let match = false
-    console.log(p1Ships)
     p1Ships.forEach((coord,idx) => {
       if(coord === shotClick){
         match = true
         p2Hits.push(shotClick)
         p1Ships.splice(idx,1)
-        console.log('hit')
         return
       }else{
       }
     })
     if(!match){
       p2Miss.push(shotClick)
-      console.log('miss')
     }
     return match
   }
@@ -612,7 +602,6 @@ function checkHitMiss(){
 
 function idShipShot(evt){
   let targetId = evt.target.id 
-  console.log(targetId)
   if(targetId.includes('g')){
     if(turn === 0 || turn === 1){
       posExtract(evt)
@@ -627,7 +616,6 @@ function idShipShot(evt){
     }
   }
   if(targetId.includes('s')){
-    console.log(targetId)
     posExtract(evt)
   }
 }
@@ -685,7 +673,6 @@ function idValidClick(shipClick){
 }
 
 function removeShip(){
-  console.log(shipSelected)
   if(shipSelected === 'pt'){pt.forEach(pt => pt.setAttribute('hidden', true))}
   if(shipSelected === 'sub'){sub.forEach(sub => sub.setAttribute('hidden', true))}
   if(shipSelected === 'cru'){cru.forEach(cru => cru.setAttribute('hidden', true))}
@@ -704,9 +691,7 @@ function resetShip(){
 
 function renderShip(){
   joinedSpaces.forEach((pos) => {
-    // console.log(pos[0])
     let square = document.querySelector(`#g${pos[0]}-${pos[1]}`)
-    // console.log(square)
     square.style.backgroundColor = 'darkgrey'
   })
 }
