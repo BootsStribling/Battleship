@@ -67,3 +67,5 @@ I started this game with the intention of diving into a very difficult game for 
 - [ ] Timer with punishment for delay of game being a hit on an existing ship
 
 - [ ] Page state between page load state and ship placement state to allow players to type custom names for use throughout the rest of the game and saved if high score to leaderboard
+  
+- [ ] Add story-based rpg component with different types of shots and progressively increasing difficulty  
