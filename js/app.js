@@ -289,7 +289,7 @@ const s99 = document.querySelector('#s9-9')
 
 //*--------------------------- Event Listeners -----------------------------*//
 
-//Pageload buttons
+//Pageload buttons shipPlacementLoad
 play.addEventListener('click', shipPlacementLoad)
 
 //Ship Placement Buttons
@@ -466,6 +466,7 @@ function renderWinner(){
   hideShotBoard()
   clearShipBoard()
   clearShotBoard()
+  player.setAttribute('hidden', true)
   // hide
   if(winner = 'p1'){
     prompt.innerText = 'Player 1 wins!'
