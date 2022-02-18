@@ -1,6 +1,6 @@
 # Battleship
 ![LoadPage](/assets/load-screen.png)
-![ShipPlacement](/assets/ship-placement.png)
+![ShipPlacement](/assets/shipplacement.png)
 ![Combat](/assets/game-play.png)
 
 [Play the Game](https://bootsstribling.github.io/Battleship/)
