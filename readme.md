@@ -35,6 +35,10 @@ I started this game with the intention of diving into a very difficult game for 
 
 ### IceBox Items:
 - [ ] Tutorial MODL PG 1 && 2
+  
+- [ ] Add shapes/texture to the ships in the ship-bank and the ship board
+
+- [ ] Add animation of ships sailing to their desired location
 
 - [ ] Animation of Ship on load screen
   
