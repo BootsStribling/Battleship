@@ -106,9 +106,11 @@ img{
 }
 
 h2{
+  display: flex;
   grid-area: h2;
   font-size: 3.5vw;
   margin: 50px;
+  align-items: flex-start;
 }
 h3{
   display: flex;
