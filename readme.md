@@ -42,7 +42,7 @@ I started this game with the intention of diving into a very difficult game for 
 
 - [ ] Animation of Ship on load screen
   
-- [ ] drag and drop ships for placement 
+- [ ] Drag and drop ships for placement 
   
 - [ ] Render P1 shots on P2ship board and vice versa 
 
@@ -52,12 +52,12 @@ I started this game with the intention of diving into a very difficult game for 
 
 - [ ] Audio of ship placement completion - ding of ship bell, saluting, sonar, airplane takeoff, (battleship conditional audio)
 
-- [ ] gif of water moving as background with nearly invisible grid in CSS to emphasize the waters
+- [ ] Gif of water moving as background with nearly invisible grid in CSS to emphasize the waters
 
-- [ ] conditional animation of hit or miss on player click of shot board
+- [ ] Conditional animation of hit or miss on player click of shot board
 
-- [ ] missle/shot arc animation in CSS from existing ship location(not sunk) of player to shot location and animation following that sequentially
+- [ ] Missle/shot arc animation in CSS from existing ship location(not sunk) of player to shot location and animation following that sequentially
 
-- [ ]  timer with punishment for delay of game being a hit on an existing ship
+- [ ] Timer with punishment for delay of game being a hit on an existing ship
 
-- [ ]   page state between page load state and ship placement state to allow players to type custom names for use throughout the rest of the game and saved if high score to leaderboard
+- [ ] Page state between page load state and ship placement state to allow players to type custom names for use throughout the rest of the game and saved if high score to leaderboard
