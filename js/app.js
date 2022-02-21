@@ -499,14 +499,15 @@ function handleShotClick(evt){
     }
   }
   renderShotBoard()
-  if(p1Ships.length === 16 || p2Ships.length === 16){
-    if(p1Ships.length === 16){
+  if(p1Ships.length === 0 || p2Ships.length === 0){
+  if(p1Ships.length === 0){
       winner = 'p2'
     }
-    if(p2Ships.length === 16){
+    if(p2Ships.length === 0){
       winner = 'p1'
     }
     renderWinner(winner)
+   
   }
   shotSquares.forEach(shotSquare => {
     shotSquare.removeEventListener('click', handleShotClick)
