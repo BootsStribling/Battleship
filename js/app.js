@@ -377,7 +377,6 @@ function backBtn() {
 function shipPlacementLoad(){
   if(turn === 0){
     player.innerText = 'Player 1'
-
   }
   if(turn === 1){
     player.innerText = 'Player 2'
@@ -387,13 +386,6 @@ function shipPlacementLoad(){
   prompt.innerText = 'Please click a ship and then click a space to place it'
   hidePageLoad()
   exposeShipPlacement()
-}
-
-function resetBtn(){
-  joinedSpaces = []
-  shipSelected = null
-  removeHighlight()
-  shipPlacementLoad()
 }
 
 function gamePageLoad(){
@@ -417,6 +409,19 @@ function gamePageLoad(){
   }
   renderShipBoard()
   renderShotBoard()
+}
+
+function changeTurnLoad(){
+  turn ++
+  title.innerText = ''
+  prompt.innerText = `It's the next players turn, click the start turn button when you are ready.`
+  endTurn.removeEventListener('click',changeTurnLoad)
+  endTurn.innerText = 'Start Turn'
+  endTurn.removeAttribute('hidden')
+  endTurn.addEventListener('click', gamePageLoad)
+  hideShipBoard()
+  clearShotBoard()
+  hideShotBoard()
 }
 
 function renderShipBoard(){
@@ -507,21 +512,6 @@ function handleShotClick(evt){
     shotSquare.removeEventListener('click', handleShotClick)
   })
 }
-
-function changeTurnLoad(){
-  turn ++
-  title.innerText = ''
-  prompt.innerText = `It's the next players turn, click the start turn button when you are ready.`
-  endTurn.removeEventListener('click',changeTurnLoad)
-  endTurn.innerText = 'Start Turn'
-  endTurn.removeAttribute('hidden')
-  endTurn.addEventListener('click', gamePageLoad)
-  hideShipBoard()
-  clearShotBoard()
-  hideShotBoard()
-}
-
-
 
 function handleShipClick(evt) {
   let targetId = evt.target.id

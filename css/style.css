@@ -110,7 +110,8 @@ h2{
   grid-area: h2;
   font-size: 3.5vw;
   margin: 50px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 h3{
   display: flex;
