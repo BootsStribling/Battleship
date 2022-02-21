@@ -9,6 +9,7 @@ const p2Hits = []
 const p2Miss = []
 let joinedTemp = []
 let joinedSpaces = []
+let shipInv = ['pt', 'sub', 'cru', 'bat', 'car']
 
 
 //1-PT Boat, 2-Submarine, 3-Cruiser, 4-Battleship, 5-Carrier
@@ -364,15 +365,7 @@ shipSquares.forEach(shipSquare => {
 //*------------------------------ Functions --------------------------------*//
 //Page loads on unhidden HTML
 //backButton
-function backBtn() {
-  turn = 0
-  hideShipPlacement()
-  title.removeAttribute('hidden')
-  play.removeAttribute('hidden')
-  img.removeAttribute('hidden')
-  joinedSpaces = []
-  removeHighlight()
-}
+
 
 function shipPlacementLoad(){
   if(turn === 0){
@@ -524,8 +517,14 @@ function handleShipClick(evt) {
         setTimeout(() => {
         prompt.innerText = 'Please click a ship and then click a space to place it'
         prompt.style.color = 'whitesmoke'}, 2000)
-      }else{
+      }else if(shipInv.includes(shipSelected)){
         idShipShot(evt)
+      }else{
+        prompt.innerText = 'You have already placed that ship'
+        prompt.style.color = 'palevioletred'
+        setTimeout(() => {
+        prompt.innerText = 'Please click a ship and then click a space to place it'
+        prompt.style.color = 'whitesmoke'}, 2000)
       }
     }else{
       highlightShip(evt)
@@ -622,7 +621,7 @@ function pushJoinedTemp(shipClick){
     setTimeout(() => {
       prompt.innerText = 'Please click a ship and then click a space to place it'
       prompt.style.color = 'whitesmoke'}, 2000)
-    resetBtn()
+      resetBtn()
       return
   }
   if(or === 'vertical'){
@@ -669,6 +668,11 @@ function removeShip(){
   if(shipSelected === 'cru'){cru.forEach(cru => cru.setAttribute('hidden', true))}
   if(shipSelected === 'bat'){bat.forEach(bat => bat.setAttribute('hidden', true))}
   if(shipSelected === 'car'){car.forEach(car => car.setAttribute('hidden', true))}
+  shipInv.forEach((ship, idx) => {
+      if(shipSelected === ship){
+        shipInv.splice(idx,1)
+      }
+    })
 }
 
 function resetShip(){
@@ -677,6 +681,7 @@ function resetShip(){
     cru.forEach(cru => cru.removeAttribute('hidden'))
     bat.forEach(bat => bat.removeAttribute('hidden'))
     car.forEach(car => car.removeAttribute('hidden'))
+    shipInv = ['pt', 'sub', 'cru', 'bat', 'car']
 }
 
 
@@ -709,7 +714,23 @@ function getWinner(){
 
 //*------------------------------ Helper functions -------------------------*//
 
+function resetBtn(){
+  resetShip()
+  tempShip = []
+  joinedTemp = []
+  joinedSpaces = []
+  shipSquares.forEach(square => square.style.backgroundColor = '')
+}
 
+function backBtn() {
+  turn = 0
+  hideShipPlacement()
+  title.removeAttribute('hidden')
+  play.removeAttribute('hidden')
+  img.removeAttribute('hidden')
+  joinedSpaces = []
+  removeHighlight()
+}
 
 //PageState Hide/Remove
 function hidePageLoad(){
