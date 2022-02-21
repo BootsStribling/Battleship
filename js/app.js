@@ -507,7 +507,7 @@ function handleShotClick(evt){
       winner = 'p1'
     }
     renderWinner(winner)
-   
+    endTurn.setAttribute('hidden', true);
   }
   shotSquares.forEach(shotSquare => {
     shotSquare.removeEventListener('click', handleShotClick)
